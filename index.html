@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M.Phil Research Progress - University of Peradeniya</title>
+
+<style>
+:root {
+    --primary-blue: #003366;
+    --accent-gold: #C5A059;
+    --light-gray: #f4f4f4;
+    --text-dark: #333;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--light-gray);
+    overflow: hidden;
+}
+
+.slideshow-container {
+    width: 90%;
+    max-width: 1000px;
+    height: 650px;
+    position: relative;
+    background: var(--white);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    padding: 50px;
+    height: 100%;
+    box-sizing: border-box;
+    animation: fade 0.5s ease-in-out;
+    overflow-y: auto;
+}
+
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+h1 {
+    color: var(--primary-blue);
+    font-size: 3.5em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: var(--accent-gold);
+    border-bottom: 2px solid var(--accent-gold);
+    padding-bottom: 10px;
+}
+
+p, li {
+    color: var(--text-dark);
+    line-height: 1.6;
+    font-size: 1.05em;
+}
+
+.subtitle {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.4em;
+}
+
+.title-slide {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-slide .slide-details p {
+    font-size: 1.2em;
+}
+
+.slide {
+    display: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.metric-box {
+    background: var(--primary-blue);
+    color: white;
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.metric-box.gold {
+    background: var(--accent-gold);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: var(--primary-blue);
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 16px;
+    margin-top: -22px;
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 24px;
+    user-select: none;
+    transition: 0.3s;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: var(--accent-gold);
+    color: white;
+}
+
+.dot-container {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.active-dot {
+    background-color: var(--primary-blue);
+}
+
+.footer-logo {
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+    font-weight: bold;
+    color: var(--primary-blue);
+    font-size: 0.8em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slideshow-container">
+
+    <div class="slide active title-slide">
+        <h1>M.Phil Research Progress</h1>
+        <p class="subtitle">A Multimodal Framework for Fake News Detection in Low Resource Settings</p>
+
+        <div class="slide-details" style="margin-top:40px;">
+            <p>M. G. Sonali K. Jayarathne</p>
+            <p><strong>Supervisors:</strong> Dr. Damayanthi Herath, Dr. Janaka Alawatugoda</p>
+            <p> Engineering Faculty, University of Peradeniya</p>
+        </div>
+    </div>
+
+    <div class="slide">
+    <h2>Dataset Acquisition & Infrastructure Setup</h2>
+
+    <div class="grid-container">
+        <div class="metric-box">
+            <strong>TRUE Images</strong><br><br>
+            <span style="font-size:1.7em;">17,175</span>
+        </div>
+
+        <div class="metric-box gold">
+            <strong>FAKE Images</strong><br><br>
+            <span style="font-size:1.7em;">8,414</span>
+        </div>
+    </div>
+
+    <div class="metric-box" style="margin-top:20px;">
+        <strong>Total Downloaded Images</strong><br><br>
+        <span style="font-size:1.8em;">25,589</span>
+    </div>
+
+    <ul style="margin-top:20px;">
+        <li><strong>Dataset Issue Resolved:</strong> Successfully completed large-scale image acquisition from the IFND dataset. Identified 31,126 broken image links</li>
+        <li><strong>Storage:</strong> Dataset securely stored and organized in Google Drive.</li>
+        <li><strong>Infrastructure Constraint:</strong> Google Colab computational and storage limitations were identified as the primary challenge during dataset acquisition.</li>
+    </ul>
+</div>
+
+
+<div class="slide">
+    <h2>Dataset Cleaning & Integrity Audit</h2>
+
+    <ul>
+        <li><strong>Original IFND Dataset:</strong> 56,714 news records.</li>
+        <li><strong>Image Retrieval:</strong> 25,588 images successfully downloaded and indexed using original IFND IDs.</li>
+        <li><strong>Duplicate Removal:</strong> 1,779 duplicate records identified and eliminated (100% label-consistent).</li>
+        <li><strong>Clean Text Dataset:</strong> 51,110 unique news records retained after deduplication.</li>
+        <li><strong>Text-Only Orphans:</strong> 27,301 records without corresponding images (excluded from multimodal pipeline).</li>
+        <li><strong>Missing Value Audit:</strong> Core labels and statements are 100% complete but <B>Date</B> field contains 11,321 missing values </li>
+        
+        
+    </ul>
+
+    <table>
+        <tr>
+            <th>Dataset Version</th>
+            <th>True</th>
+            <th>Fake</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td>Original Dataset</td>
+            <td>37,800 (66.65%)</td>
+            <td>18,914 (33.35%)</td>
+            <td>56,714</td>
+        </tr>
+        <tr>
+            <td>Clean Text Dataset</td>
+            <td>33,684 (65.90%)</td>
+            <td>17,426 (34.10%)</td>
+            <td>51,110</td>
+        </tr>
+        <tr>
+            <td>Final Multimodal Dataset</td>
+            <td>15,832 (66.50%)</td>
+            <td>7,977 (33.50%)</td>
+            <td>23,809</td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="slide">
+    <h2>Headline Length & Linguistic Distribution Analysis</h2>
+
+    <ul>
+        <li><strong>IFND Benchmark Insight:</strong> Original IFND paper shows peak headline length between 8–14 words.</li>
+        <li><strong>Dataset Alignment:</strong> Our distribution aligns with IFND pattern, confirming realistic sampling.</li>
+    </ul>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Fake News</th>
+            <th>True News</th>
+        </tr>
+        <tr>
+            <td>Mean Length</td>
+            <td>15.25 words</td>
+            <td>11.75 words</td>
+        </tr>
+        <tr>
+            <td>Median Length</td>
+            <td>13.0 words</td>
+            <td>12.0 words</td>
+        </tr>
+        <tr>
+            <td>Standard Deviation</td>
+            <td>6.28</td>
+            <td>3.00</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li><strong>Fake News Pattern:</strong> Higher mean and variance, indicating more variability and exaggeration in phrasing.</li>
+        <li><strong>True News Pattern:</strong> More compact and symmetric distribution with fewer extreme values.</li>
+        <li><strong>Key Insight:</strong> Fake news statements are generally longer and more dispersed, suggesting stylistic inflation and attention-seeking structure.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Linguistic Complexity & Structural Outliers (Final Multimodal Dataset)</h2>
+
+    <ul>
+        <li><strong>Fake News Complexity:</strong> Mean of 15.25 words, showing higher variability and exaggeration tendencies.</li>
+        <li><strong>True News Complexity:</strong> Mean of 11.75 words, more concise and structurally consistent distribution.</li>
+        <li><strong>Key Observation:</strong> Fake news exhibits wider spread, indicating stylistic inflation and narrative amplification.</li>
+    </ul>
+
+    <ul>
+        <li><strong>Sensationalism Boundary:</strong> Defined at 20 words (Q3 + 1.5×IQR rule).</li>
+        <li><strong>Structural Outliers:</strong> 3,664 headlines exceed the sensationalism threshold.</li>
+        <li><strong>High Complexity Topics:</strong> Political and Election-related news show highest complexity (~28.1 words among outliers).</li>
+    </ul>
+
+    <ul>
+        <li><strong>Key Insight:</strong> Longer and structurally complex headlines are strongly associated with high-stakes political content and misinformation patterns.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Augmentation Naturalism Audit</h2>
+
+    <ul>
+        <li><strong>Augmented Subset:</strong> 4,010 samples generated using Phase 2 cosine similarity-based augmentation.</li>
+        <li><strong>Coverage:</strong> Approximately 50.2% of the fake news class consists of augmented samples.</li>
+        <li><strong>Key Objective:</strong> Address data scarcity in fake news samples while preserving linguistic realism.</li>
+    </ul>
+
+    <ul>
+        <li><strong>Outlier Analysis:</strong> 0.00% of structural outliers are augmented samples.</li>
+        <li><strong>Finding:</strong> Augmented sentences maintain natural-length distributions without producing unnatural or excessively long structures.</li>
+        <li><strong>Validation Result:</strong> Augmentation does not distort linguistic distribution or introduce abnormal patterns.</li>
+    </ul>
+
+    <ul>
+        <li><strong>Conclusion:</strong> The augmentation strategy successfully generates realistic, context-preserving text and improves dataset balance for model training.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>Thematic Reconciliation & Novel Expansion</h2>
+
+    <ul>
+        <li><strong>Official Category Alignment:</strong> Reconciled dataset into core themes: Election, Politics, COVID-19, Violence, and Miscellaneous.</li>
+        <li><strong>Schema Consistency:</strong> Ensured uniform thematic labeling across cleaned and multimodal subsets.</li>
+    </ul>
+
+    <ul>
+        <li><strong>Novel Discoveries:</strong> Identified two additional high-signal categories:
+            GOVERNMENT (4,874 records) and TERROR (2,136 records).</li>
+        <li><strong>Structural Insight:</strong> These categories emerge as distinct thematic pillars within the dataset distribution.</li>
+    </ul>
+
+    <ul>
+        <li><strong>Terror Anomaly:</strong> TERROR category contains 100% True news (2,136 samples).</li>
+        <li><strong>Interpretation:</strong> Serves as a high-confidence factual benchmark for security-related reporting.</li>
+        <li><strong>Insight:</strong> Indicates strong source reliability in terrorism-related coverage compared to other domains.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h2>IFND Topic Category: Label Density & High-Stakes Clusters</h2>
+
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Fake</th>
+            <th>True</th>
+            <th>Total</th>
+            <th>True Density (%)</th>
+            <th>Fake Density (%)</th>
+        </tr>
+        <tr><td>MISLEADING</td><td>1935</td><td>0</td><td>1935</td><td>0.00</td><td>100.00</td></tr>
+        <tr><td>TRAD</td><td>16</td><td>0</td><td>16</td><td>0.00</td><td>100.00</td></tr>
+        <tr><td>MISLEADIND</td><td>17</td><td>0</td><td>17</td><td>0.00</td><td>100.00</td></tr>
+        <tr><td>VIOLENCE</td><td>2058</td><td>2353</td><td>4411</td><td>53.34</td><td>46.66</td></tr>
+        <tr><td>POLITICS</td><td>1271</td><td>2380</td><td>3651</td><td>65.19</td><td>34.81</td></tr>
+        <tr><td>COVID-19</td><td>1326</td><td>2625</td><td>3951</td><td>66.44</td><td>33.56</td></tr>
+        <tr><td>GOVERNMENT</td><td>1351</td><td>3523</td><td>4874</td><td>72.28</td><td>27.72</td></tr>
+        <tr><td>ELECTION</td><td>3</td><td>2815</td><td>2818</td><td>99.89</td><td>0.11</td></tr>
+        <tr><td>TERROR</td><td>0</td><td>2136</td><td>2136</td><td>100.00</td><td>0.00</td></tr>
+    </table>
+</div>
+
+<div class="slide">
+    <h2>Summary of Related Studies</h2>
+
+    <table border="1" cellspacing="0" cellpadding="5" style="width:100%; border-collapse:collapse; font-size:12px;">
+        <thead>
+            <tr>
+                <th>Authors</th>
+                <th>Year</th>
+                <th>Model</th>
+                <th>Best Accuracy</th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr>
+                <td>Sharma et al.</td>
+                <td>2021</td>
+                <td>Random Forest, LSTM, Bi-LSTM</td>
+                <td>94%, 92.7%</td>
+            </tr>
+            <tr>
+                <td>Wilson et al.</td>
+                <td>2023</td>
+                <td>SVM</td>
+                <td>93%</td>
+            </tr>
+            <tr>
+                <td>Shivani et al.</td>
+                <td>2024</td>
+                <td>Convnext-Tiny architecture, Swin Transformer Architecture</td>
+                <td>88.86%, 91%</td>
+            </tr>
+             <tr>
+                <td>Dhiman et al.</td>
+                <td>2024</td>
+                <td>GBERT</td>
+                <td>95.30%</td>
+            </tr>
+            <tr>
+                <td>Qu et al.</td>
+                <td>2024</td>
+                <td>Temporal Enhanced Multimodal Graph Neural Networks</td>
+                <td>96.06%</td>
+            </tr>
+            <tr>
+                <td>Kumar et al.</td>
+                <td>2025</td>
+                <td>CNN–LSTM, BiLSTM–CNN, Parallel CNN–LSTM</td>
+                <td>93.35%, 93.73%, 94.09%</td>
+            </tr>
+            <tr>
+                <td>Kavya et al.</td>
+                <td>2025</td>
+                <td>MF-BERT</td>
+                <td>97.03%</td>
+            </tr>
+            
+            <tr>
+                <td>Sharma et al.</td>
+                <td>2025</td>
+                <td>BERT-CNN</td>
+                <td>99.3%</td>
+            </tr>
+            <tr>
+                <td>Kumar et al.</td>
+                <td>2025</td>
+                <td>LLM</td>
+                <td>Experimented in Few-Shot(0.356) & Zero-Shot(0.562)</td>
+            </tr>
+            <tr>
+                <td>Cui et al.</td>
+                <td>2025</td>
+                <td>GNN, RWKV MLP-mixer</td>
+                <td>No Open Access</td>
+            </tr>
+            <tr>
+                <td>Tufchi et al.</td>
+                <td>2025</td>
+                <td>ConvNext-a concept inspired by vision translators</td>
+                <td>87.9%</td>
+            </tr>
+            <tr>
+                <td>Shivani et al.</td>
+                <td>2025</td>
+                <td>LLM</td>
+                <td>98.03%,</td>
+            </tr>
+            <tr>
+                <td>Dhiman et al.</td>
+                <td>2025</td>
+                <td>BERT, GPT</td>
+                <td>95.43</td>
+            </tr>
+            <tr>
+                <td>Cotroneo et al.</td>
+                <td>2026</td>
+                <td>LLM</td>
+                <td>Mentioned Only</td>
+            </tr>
+             <tr>
+                <td>Trivedi et al.</td>
+                <td>2026</td>
+                <td>DistilBERT encoder, Adaptive Neuro-Fuzzy Inference System</td>
+                <td>97.06%</td>
+            </tr>
+               <tr>
+                <td>Ai et al.</td>
+                <td>2026</td>
+                <td>LVLM</td>
+                <td>Not Explicitly Mentioned</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+ 
+    <div class="slide">
+        <h2>Next Steps</h2>
+        <ul>
+       </ul>
+    </div>
+
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <div class="dot-container">
+        <span class="dot active-dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        <span class="dot" onclick="currentSlide(8)"></span>
+    </div>
+
+    <div class="footer-logo">UoP | Engineering Faculty</div>
+
+</div>
+
+<script>
+let slideIndex = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+    showSlide(slideIndex);
+});
+
+function showSlide(index) {
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
+
+    // wrap index properly
+    if (index >= slides.length) slideIndex = 0;
+    else if (index < 0) slideIndex = slides.length - 1;
+    else slideIndex = index;
+
+    // hide all slides
+    slides.forEach(slide => {
+        slide.style.display = "none";
+    });
+
+    // remove active dots
+    dots.forEach(dot => {
+        dot.classList.remove("active-dot");
+    });
+
+    // show current slide
+    slides[slideIndex].style.display = "block";
+
+    // activate dot safely
+    if (dots[slideIndex]) {
+        dots[slideIndex].classList.add("active-dot");
+    }
+}
+
+function plusSlides(n) {
+    showSlide(slideIndex + n);
+}
+
+function currentSlide(n) {
+    showSlide(n - 1);
+}
+
+// keyboard support
+document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") plusSlides(-1);
+    if (e.key === "ArrowRight") plusSlides(1);
+});
+
+// make functions accessible to inline onclick
+window.plusSlides = plusSlides;
+window.currentSlide = currentSlide;
+</script>
+
+</body>
+</html>
+
