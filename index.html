@@ -409,117 +409,195 @@ th, td {
                 <th>Authors</th>
                 <th>Year</th>
                 <th>Model</th>
+                <th>Dataset Size</th>
+                <th>Data Splits (Train/Val/Test/CV)</th>
                 <th>Best Accuracy</th>
             </tr>
-        </thead>
-        <tbody>
-             <tr>
-                <td>Sharma et al.</td>
-                <td>2021</td>
-                <td>Random Forest, LSTM, Bi-LSTM</td>
-                <td>94%, 92.7%</td>
-            </tr>
-            <tr>
-                <td>Wilson et al.</td>
-                <td>2023</td>
-                <td>SVM</td>
-                <td>93%</td>
-            </tr>
-            <tr>
-                <td>Shivani et al.</td>
-                <td>2024</td>
-                <td>Convnext-Tiny architecture, Swin Transformer Architecture</td>
-                <td>88.86%, 91%</td>
-            </tr>
-             <tr>
-                <td>Dhiman et al.</td>
-                <td>2024</td>
-                <td>GBERT</td>
-                <td>95.30%</td>
-            </tr>
-            <tr>
-                <td>Qu et al.</td>
-                <td>2024</td>
-                <td>Temporal Enhanced Multimodal Graph Neural Networks</td>
-                <td>96.06%</td>
-            </tr>
-            <tr>
-                <td>Kumar et al.</td>
-                <td>2025</td>
-                <td>CNN–LSTM, BiLSTM–CNN, Parallel CNN–LSTM</td>
-                <td>93.35%, 93.73%, 94.09%</td>
-            </tr>
-            <tr>
-                <td>Kavya et al.</td>
-                <td>2025</td>
-                <td>MF-BERT</td>
-                <td>97.03%</td>
-            </tr>
-            
-            <tr>
-                <td>Sharma et al.</td>
-                <td>2025</td>
-                <td>BERT-CNN</td>
-                <td>99.3%</td>
-            </tr>
-            <tr>
-                <td>Kumar et al.</td>
-                <td>2025</td>
-                <td>LLM</td>
-                <td>Experimented in Few-Shot(0.356) & Zero-Shot(0.562)</td>
-            </tr>
-            <tr>
-                <td>Cui et al.</td>
-                <td>2025</td>
-                <td>GNN, RWKV MLP-mixer</td>
-                <td>No Open Access</td>
-            </tr>
-            <tr>
-                <td>Tufchi et al.</td>
-                <td>2025</td>
-                <td>ConvNext-a concept inspired by vision translators</td>
-                <td>87.9%</td>
-            </tr>
-            <tr>
-                <td>Shivani et al.</td>
-                <td>2025</td>
-                <td>LLM</td>
-                <td>98.03%,</td>
-            </tr>
-            <tr>
-                <td>Dhiman et al.</td>
-                <td>2025</td>
-                <td>BERT, GPT</td>
-                <td>95.43%</td>
-            </tr>
+   <thead>
+<tr>
+    <th>Authors</th>
+    <th>Year</th>
+    <th>Model</th>
+    <th>Dataset Size</th>
+    <th>Data Splits (Train / Val / Test / CV)</th>
+    <th>Best Accuracy</th>
+</tr>
+</thead>
 
-              <tr>
-                <td>Divya et al.</td>
-                <td>2025</td>
-                <td>Autoencoder Neural Network</td>
-                <td>86.0%</td>
-            </tr>
-            <tr>
-                <td>Cotroneo et al.</td>
-                <td>2026</td>
-                <td>LLM</td>
-                <td>Mentioned Only</td>
-            </tr>
-             <tr>
-                <td>Trivedi et al.</td>
-                <td>2026</td>
-                <td>DistilBERT encoder, Adaptive Neuro-Fuzzy Inference System</td>
-                <td>97.06%</td>
-            </tr>
-               <tr>
-                <td>Ai et al.</td>
-                <td>2026</td>
-                <td>LVLM</td>
-                <td>Not Explicitly Mentioned</td>
-            </tr>
-            
-            
-        </tbody>
+<tbody>
+
+<tr>
+    <td>Sharma et al.</td>
+    <td>2021</td>
+    <td>Random Forest, LSTM, Bi-LSTM</td>
+    <td>56,868</td>
+    <td>67% Train / 33% Test</td>
+    <td>94.0%, 92.7%</td>
+</tr>
+
+<tr>
+    <td>Sharma et al.</td>
+    <td>2022</td>
+    <td>LSTM + VGG16</td>
+    <td>56,868</td>
+    <td>67% Train / 33% Test</td>
+    <td>92.5%</td>
+</tr>
+
+<tr>
+    <td>Wilson et al.</td>
+    <td>2023</td>
+    <td>SVM</td>
+    <td>56,714</td>
+    <td>72% Train / 28% Test</td>
+    <td>93%</td>
+</tr>
+
+<tr>
+    <td>Shivani et al.</td>
+    <td>2024</td>
+    <td>ConvNeXt-Tiny,<br>Swin Transformer</td>
+    <td>56,868</td>
+    <td>Standard train_test_split</td>
+    <td>88.86%, 91%</td>
+</tr>
+
+<tr>
+    <td>Dhiman et al.</td>
+    <td>2024</td>
+    <td>GBERT</td>
+    <td>56,868 (Merged: 61,364)</td>
+    <td>
+        80% Train<br>
+        20% Test
+    </td>
+    <td>95.30%</td>
+</tr>
+
+<tr>
+    <td>Qu et al.</td>
+    <td>2024</td>
+    <td>Temporal Enhanced Multimodal GNN</td>
+    <td>126K (Augmented)</td>
+    <td>
+        Train: 3,069<br>
+        Validation: 341
+    </td>
+    <td>96.06%</td>
+</tr>
+
+<tr>
+    <td>Kumar et al.</td>
+    <td>2025</td>
+    <td>CNN-LSTM,<br>BiLSTM-CNN,<br>Parallel CNN-LSTM</td>
+    <td>56,714</td>
+    <td>20% Validation</td>
+    <td>93.35%, 93.73%, 94.09%</td>
+</tr>
+
+<tr>
+    <td>Kavya et al.</td>
+    <td>2025</td>
+    <td>MF-BERT</td>
+    <td>56,714</td>
+    <td>80% Train / 20% Test</td>
+    <td>97.03%</td>
+</tr>
+
+<tr>
+    <td>Sharma et al.</td>
+    <td>2025</td>
+    <td>BERT-CNN</td>
+    <td>2013–2021 News Collection</td>
+    <td>67% Train / 33% Test</td>
+    <td>99.30%</td>
+</tr>
+
+<tr>
+    <td>Kumar et al.</td>
+    <td>2025</td>
+    <td>LLM</td>
+    <td>56,868</td>
+    <td>Not Reported</td>
+    <td>Few-shot: 0.356<br>Zero-shot: 0.562</td>
+</tr>
+
+<tr>
+    <td>Cui et al.</td>
+    <td>2025</td>
+    <td>GNN + RWKV MLP-Mixer</td>
+    <td>56,868</td>
+    <td>
+        Train: 39,807<br>
+        Validation: 11,373<br>
+        Test: 5,688
+    </td>
+    <td>Not Reported</td>
+</tr>
+
+<tr>
+    <td>Tufchi et al.</td>
+    <td>2025</td>
+    <td>ConvNeXt</td>
+    <td>56,868</td>
+    <td>Not Reported</td>
+    <td>87.9%</td>
+</tr>
+
+<tr>
+    <td>Shivani et al.</td>
+    <td>2025</td>
+    <td>LLM</td>
+    <td>Not Mentioned</td>
+    <td>Not Reported</td>
+    <td>98.03%</td>
+</tr>
+
+<tr>
+    <td>Dhiman et al.</td>
+    <td>2025</td>
+    <td>BERT, GPT</td>
+    <td>56,868 (Merged: 61,672)</td>
+    <td>Merged with FakeNewsIndia</td>
+    <td>95.43%</td>
+</tr>
+
+<tr>
+    <td>Divya et al.</td>
+    <td>2025</td>
+    <td>Autoencoder Neural Network</td>
+    <td>Not Reported</td>
+    <td>Not Reported</td>
+    <td>86.0%</td>
+</tr>
+
+<tr>
+    <td>Cotroneo et al.</td>
+    <td>2026</td>
+    <td>LLM</td>
+    <td>Mentioned Only</td>
+    <td>Not Reported</td>
+    <td>Not Reported</td>
+</tr>
+
+<tr>
+    <td>Trivedi et al.</td>
+    <td>2026</td>
+    <td>DistilBERT + ANFIS</td>
+    <td>56,713<br>(25,195 after preprocessing)</td>
+    <td>Stratified 5-Fold Cross Validation</td>
+    <td>97.06%</td>
+</tr>
+
+<tr>
+    <td>Ai et al.</td>
+    <td>2026</td>
+    <td>LVLM</td>
+    <td>Not Explicitly Mentioned</td>
+    <td>Not Reported</td>
+    <td>Not Reported</td>
+</tr>
+</tbody>
     </table>
 </div>
 
