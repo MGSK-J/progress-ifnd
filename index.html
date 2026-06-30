@@ -183,6 +183,20 @@ th, td {
     color: var(--primary-blue);
     font-size: 0.8em;
 }
+.slide table {
+    font-size: 13px;
+}
+
+.slide td,
+.slide th {
+    padding: 8px;
+}
+
+.slide {
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
 </style>
 </head>
 
@@ -630,7 +644,186 @@ th, td {
         </tr>
     </table>
 </div>
- 
+
+<div class="slide">
+  <title>Fake News Datasets Available</title>
+  <h2>Comprehensive Overview of Multimodal Fake News & Related Benchmarks</h2>
+
+<table>
+<thead>
+<tr>
+    <th>Dataset</th>
+    <th>Year</th>
+    <th>Modalities</th>
+    <th>Total Size</th>
+    <th>Train</th>
+    <th>Validation</th>
+    <th>Test / CV</th>
+    <th>Split / Notes</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+    <td>IFND (Baseline)</td>
+    <td>2023</td>
+    <td>Text, Image</td>
+    <td>56,868 pairs</td>
+    <td>User-defined</td>
+    <td>User-defined</td>
+    <td>User-defined</td>
+    <td>Fact-checked using Alt News & Boom Live</td>
+</tr>
+
+<tr>
+    <td>FakeNewsNet</td>
+    <td>2017</td>
+    <td>Text, Image, Spatiotemporal</td>
+    <td>~19,819 variants</td>
+    <td>User-defined</td>
+    <td>User-defined</td>
+    <td>User-defined</td>
+    <td>BuzzFeed & PolitiFact subsets</td>
+</tr>
+
+<tr>
+    <td>Mocheg</td>
+    <td>2023</td>
+    <td>Text, Image, Evidence</td>
+    <td>15,601 claims</td>
+    <td>11,669</td>
+    <td>1,490</td>
+    <td>2,442</td>
+    <td>Built from PolitiFact & Snopes sources</td>
+</tr>
+
+<tr>
+    <td>VERITE Benchmark v1.0</td>
+    <td>2024</td>
+    <td>Text, Image</td>
+    <td>986 pairs</td>
+    <td>-</td>
+    <td>-</td>
+    <td>986 (Test only)</td>
+    <td>True / Miscaptioned / OOC evaluation set</td>
+</tr>
+
+<tr>
+    <td>VisualNews</td>
+    <td>2021</td>
+    <td>Text, Image</td>
+    <td>~1,000,000</td>
+    <td>User-defined</td>
+    <td>User-defined</td>
+    <td>User-defined</td>
+    <td>Large-scale news-image dataset</td>
+</tr>
+
+<tr>
+    <td>COSMOS</td>
+    <td>2021</td>
+    <td>Text, Image</td>
+    <td>450K captions / 200K images</td>
+    <td>~160,000 images</td>
+    <td>~40,000 images</td>
+    <td>1,700</td>
+    <td>Out-of-context image reuse detection</td>
+</tr>
+
+<tr>
+    <td>NewsCLIPpings</td>
+    <td>2021</td>
+    <td>Text, Image</td>
+    <td>1,111,828 pairs</td>
+    <td>1,111,828</td>
+    <td>116,468</td>
+    <td>116,904</td>
+    <td>Automated mismatched image-text pairs</td>
+</tr>
+
+<tr>
+    <td>Factify 2</td>
+    <td>2023</td>
+    <td>Text, Image</td>
+    <td>50,000 samples</td>
+    <td>35,000</td>
+    <td>7,500</td>
+    <td>7,500</td>
+    <td>70:15:15 split structure</td>
+</tr>
+
+<tr>
+    <td>MMFakeBench</td>
+    <td>2025</td>
+    <td>Text, Image</td>
+    <td>11,000 pairs</td>
+    <td>Zero-shot</td>
+    <td>1,000</td>
+    <td>10,000</td>
+    <td>LVLM evaluation benchmark</td>
+</tr>
+
+<tr>
+    <td>DGM⁴</td>
+    <td>2023</td>
+    <td>Text, Image</td>
+    <td>230,000 samples</td>
+    <td>161,000</td>
+    <td>34,500</td>
+    <td>34,500</td>
+    <td>Original + manipulated + hybrid data</td>
+</tr>
+
+<tr>
+    <td>MFND</td>
+    <td>2025</td>
+    <td>Text, Image</td>
+    <td>125,000 samples</td>
+    <td>87,500</td>
+    <td>18,750</td>
+    <td>18,750</td>
+    <td>RIRT, FIRT, RIFT, FIFT categories</td>
+</tr>
+
+<tr>
+    <td>Trivedi et al.</td>
+    <td>2026</td>
+    <td>Text, Image</td>
+    <td>56,713</td>
+    <td>Stratified CV</td>
+    <td>-</td>
+    <td>5-Fold CV</td>
+    <td>DistilBERT + ANFIS model</td>
+</tr>
+
+<tr>
+    <td>Divya et al.</td>
+    <td>2025</td>
+    <td>Text, Image</td>
+    <td>Not reported</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>Autoencoder-based approach</td>
+</tr>
+
+<tr>
+    <td>Cotroneo et al.</td>
+    <td>2026</td>
+    <td>Text, Image</td>
+    <td>Not reported</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>LLM-based evaluation</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
     <div class="slide">
         <h2>Next Steps</h2>
         <ul>
