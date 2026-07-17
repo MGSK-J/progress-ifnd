@@ -196,7 +196,14 @@ th, td {
     overflow-y: auto;
     scrollbar-width: thin;
 }
-
+.slide-image {
+    max-width: 100%;
+    max-height: 320px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
 </style>
 </head>
 
@@ -292,9 +299,9 @@ th, td {
         Word count analysis was conducted to compare the length distribution of fake and true news headlines.
     </p>
 
-    <img src="EDA_Headline.png" 
+    <img src="./EDA_Headline.png" 
          alt="Headline length distribution for fake and true news"
-         style="width:80%; display:block; margin:20px auto; border-radius:8px;">
+         class="slide-image">
 
     <table>
         <tr>
@@ -322,10 +329,9 @@ th, td {
     <ul>
         <li>Fake news headlines have a higher mean word count and a larger standard deviation showing that they are generally longer and more varied in length.</li>
 
-        <li>True news headlines show a lower mean word count and smaller standard deviation, indicating a more compact and consistent headline structure.</li>
+        <li>True news headlines show a lower mean word count and smaller standard deviation.</li>
 
-        <li>Although the median values are close, fake news headlines show greater dispersion, suggesting that some fake headlines are much longer and more attention-seeking than true headlines.</li>
-    </ul>
+   </ul>
 
     <p class="reference">
         This observation is consistent with Horne and Adali (2017), who found that fake news uses distinctive title structures compared with real news.
@@ -333,70 +339,43 @@ th, td {
 </div>
 
 <div class="slide">
-  <h2>Dataset Overview (Final Multimodal Dataset)</h2>
+  <h2>Dataset (Final Multimodal Dataset)</h2>
 
-<ul>
-    <li><strong>Dataset Columns:</strong> id, Statement, Image, Web, Category, Date, Label, image_path</li>
-    <li><strong>Label Classes:</strong> Fake, TRUE</li>
-</ul>
+  <ul>
+      <li>Columns - id, Statement, Image, Web, Category, Date, Label, image_path</li>
+      <li>Classification labels - Fake and True (Binary)</li>
+ </ul>
 
-<h2>Linguistic Complexity & Structural Outliers (Final Multimodal Dataset)</h2>
+  <h2>Headline Length and Structural Patterns</h2>
 
-<ul>
-    <li><strong>Fake News Complexity:</strong> Mean of 15.25 words, showing higher variability and exaggeration tendencies.</li>
-    <li><strong>True News Complexity:</strong> Mean of 11.75 words, more concise and structurally consistent distribution.</li>
-    <li><strong>Key Observation:</strong> Fake news exhibits wider spread, indicating stylistic inflation and narrative amplification.</li>
-</ul>
+  <ul>
+      <li>Fake headlines show a higher average word count compared with TRUE headlines.</li>
+      <li>TRUE headlines are shorter on average and show lower variation in length.</li>
+      <li>The larger standard deviation in fake news indicates that fake headlines have a wider spread in word length.</li>
+  </ul>
 
-<ul>
-    <li><strong>Sensationalism Boundary:</strong> Defined at 20 words (Q3 + 1.5×IQR rule).</li>
-    <li><strong>Structural Outliers:</strong> 3,664 headlines exceed the sensationalism threshold.</li>
-    <li><strong>High Complexity Topics:</strong> Political and Election-related news show highest complexity (~28.1 words among outliers).</li>
-</ul>
-
-<ul>
-    <li><strong>Key Insight:</strong> Longer and structurally complex headlines are strongly associated with high-stakes political content and misinformation patterns.</li>
-</ul>
-</div>
+</div>   
 
 <div class="slide">
-    <h2>Augmentation Naturalism Audit</h2>
+    <h2>Data Audit</h2>
 
     <ul>
-        <li><strong>Augmented Subset:</strong> 4,010 samples generated using Phase 2 cosine similarity-based augmentation.</li>
-        <li><strong>Coverage:</strong> Approximately 50.2% of the fake news class consists of augmented samples.</li>
-        <li><strong>Key Objective:</strong> Address data scarcity in fake news samples while preserving linguistic realism.</li>
-    </ul>
-
-    <ul>
-        <li><strong>Outlier Analysis:</strong> 0.00% of structural outliers are augmented samples.</li>
-        <li><strong>Finding:</strong> Augmented sentences maintain natural-length distributions without producing unnatural or excessively long structures.</li>
-        <li><strong>Validation Result:</strong> Augmentation does not distort linguistic distribution or introduce abnormal patterns.</li>
-    </ul>
-
-    <ul>
-        <li><strong>Conclusion:</strong> The augmentation strategy successfully generates realistic, context-preserving text and improves dataset balance for model training.</li>
+        <li>4,010 samples are marked as AUGMENT in the final multimodal dataset.</li>
+        <li>These samples represent approximately 50.2% of the fake news class.</li>
+        <li>The augmented samples help increase fake-class coverage but further checks are required to confirm their semantic quality and effect on model performance.</li>
     </ul>
 </div>
 
 <div class="slide">
-    <h2>Thematic Reconciliation & Novel Expansion</h2>
+    <h2>Category Distribution Audit</h2>
+
+    <img src="./category_EDA.png"
+         alt="Category-wise Fake and TRUE news distribution"
+         style="width:78%; display:block; margin:10px auto 15px auto; border-radius:6px;">
 
     <ul>
-        <li><strong>Official Category Alignment:</strong> Reconciled dataset into core themes: Election, Politics, COVID-19, Violence, and Miscellaneous.</li>
-        <li><strong>Schema Consistency:</strong> Ensured uniform thematic labeling across cleaned and multimodal subsets.</li>
-    </ul>
-
-    <ul>
-        <li><strong>Novel Discoveries:</strong> Identified two additional high-signal categories:
-            GOVERNMENT (4,874 records) and TERROR (2,136 records).</li>
-        <li><strong>Structural Insight:</strong> These categories emerge as distinct thematic pillars within the dataset distribution.</li>
-    </ul>
-
-    <ul>
-        <li><strong>Terror Anomaly:</strong> TERROR category contains 100% True news (2,136 samples).</li>
-        <li><strong>Interpretation:</strong> Serves as a high-confidence factual benchmark for security-related reporting.</li>
-        <li><strong>Insight:</strong> Indicates strong source reliability in terrorism-related coverage compared to other domains.</li>
+        <li>The final multimodal dataset shows an uneven distribution across topic categories.</li>
+        <li>Some categories contain both Fake and TRUE records, while others are dominated by one label.</li>
     </ul>
 </div>
 
@@ -656,7 +635,7 @@ th, td {
 
 <div class="slide">
   <title>Fake News Datasets Available</title>
-  <h2>Comprehensive Overview of Multimodal Fake News & Related Benchmarks</h2>
+  <h2>Comprehensive Overview of Multimodal Fake News Datasets</h2>
 
 <table>
 <thead>
@@ -755,9 +734,9 @@ th, td {
     <td>2023</td>
     <td>Text, Image</td>
     <td>230,000 samples</td>
-    <td>N/A</td>
-    <td>N/A</td>
-    <td>N/A</td>
+    <td>Not mentioned Explicitly</td>
+    <td>Not mentioned Explicitly</td>
+    <td>Not mentioned Explicitly</td>
     <td>Original + manipulated + hybrid data</td>
 </tr>
 
@@ -776,6 +755,116 @@ th, td {
 </table>
 </div>
 
+<div class="slide">
+    <h2>Fake News Datasets Available</h2>
+    <h3>Overview of Multimodal and Related Fake News Benchmarks</h3>
+
+    <table class="dataset-table">
+        <thead>
+            <tr>
+                <th>Dataset</th>
+                <th>Year</th>
+                <th>Modalities</th>
+                <th>Total Size</th>
+                <th>Train</th>
+                <th>Validation</th>
+                <th>Test / CV</th>
+                <th>Split / Access Notes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><strong>Factify 2.0</strong></td>
+                <td>2023</td>
+                <td>Text, Image</td>
+                <td>50,000 samples</td>
+                <td>35,000</td>
+                <td>7,500</td>
+                <td>7,500</td>
+                <td>70:15:15 split structure, registration/form access required.</td>
+            </tr>
+
+            <tr>
+                <td><strong>MOCHEG</strong></td>
+                <td>2023</td>
+                <td>Claim + Text Evidence + Images</td>
+                <td>15,601 claims</td>
+                <td>Available after dataset access</td>
+                <td>Available after dataset access</td>
+                <td>Available after dataset access</td>
+                <td>Google form/dataset request, useful for multimodal fact-checking.</td>
+            </tr>
+
+             <tr>
+                <td><strong>NewsCLIPpings</strong></td>
+                <td>2021</td>
+                <td>Text, Image</td>
+                <td>1,345,200 pairs</td>
+                <td>1,111,828</td>
+                <td>116,468</td>
+                <td>116,904</td>
+                <td>Automated mismatched image-text pairs, requires VisualNews and setup script.</td>
+            </tr>
+
+            <tr>
+                <td><strong>PolitiFact Fake News</strong></td>
+                <td>Hugging Face Dataset</td>
+                <td>Text</td>
+                <td>21.3k rows</td>
+                <td>17.1k</td>
+                <td>-</td>
+                <td>4.23k</td>
+                <td>Directly downloadable from Hugging Face, useful as a text-only baseline.</td>
+            </tr>
+
+            <tr>
+                <td><strong>r/Fakeddit</strong></td>
+                <td>2020</td>
+                <td>Text + Images + Metadata</td>
+                <td>1M+ samples</td>
+                <td>Available</td>
+                <td>Available</td>
+                <td>Available</td>
+                <td>Requires separate handling of text and images, use a smaller multimodal subset for laptop experiments.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="slide">
+    <h2>Other Models for Consideration</h2>
+
+    <ul>
+        <li>
+            Text-Based Transformer Models - BERT, DistilBERT, RoBERTa, GBERT
+        </li>
+
+        <li>
+            Image Feature Extraction Models - ResNet-50, VGG-16, EfficientNet, Vision Transformer
+        </li>
+
+        <li>
+            Hybrid Deep Learning Models - CNN-LSTM, BiLSTM-CNN, Parallel CNN-LSTM, BERT-CNN
+        </li>
+
+        <li>
+            Multimodal Fusion Models - DistilBERT + ResNet-50, BERT + CNN, MF-BERT, attention-based fusion
+        </li>
+
+        <li>
+            CLIP-Based Models - CLIP, OpenCLIP for image-text semantic alignment
+        </li>
+
+        <li>
+            Graph-Based Multimodal Models - CMGN, TEMGNN, Text GNN, RWKV MLP-Mixer with cross-feature fusion
+        </li>
+
+        <li>
+           VLM / LVLM-Based Reasoning Models - BLIP-2, InstructBLIP, LLaVA, Qwen-VL, Qwen2.5-VL
+        </li>
+    </ul>
+</div>
 
     <div class="slide">
         <h2>Next Steps</h2>
