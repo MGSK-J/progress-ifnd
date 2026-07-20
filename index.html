@@ -866,6 +866,29 @@ th, td {
     </ul>
 </div>
 
+<div class="slide">
+    <h2>Research Gaps in Multimodal Fake News Detection</h2>
+
+    <ul>
+        <li>
+            <strong>Limited VLM Evaluation on IFND / Indian Datasets:</strong>
+            Most Vision-Language Models (CLIP, BLIP-2, LLaVA, Qwen-VL) have been evaluated primarily on Western datasets. Only a few studies like <em>F2IND-IT</em> and <em>MF-BERT</em> (2025–2026) explicitly target IFND, indicating a lack of systematic VLM evaluation for Indian multimodal fake news detection.:contentReference[oaicite:0]{index=0}
+            Trivedi et al. - DistilBERT+ANFIS (2026) and Kavya et al. - MF-BERT (2025)
+        </li>
+
+        <li>
+            <strong>Need for Lightweight / Frozen VLM Methods for Consumer-Grade Hardware:</strong>
+            Most LVLM-based studies focus on large-scale fine-tuning or cloud deployment (MERF, LVLM surveys). Few studies consider parameter-efficient methods suitable for local, low-resource setups. This gap is critical for practical deployment on IFND and small-scale hardware.:contentReference[oaicite:2]{index=2}
+            
+        </li>
+    </ul>
+
+    <p class="insight">
+        <strong>Implication:</strong> These gaps justify a study that evaluates frozen/fine-tuned VLMs on IFND, tests cross-dataset performance, and proposes lightweight multimodal fake news detection methods suitable for consumer-grade environments.
+    </p>
+</div>
+
+
     <div class="slide">
         <h2>Next Steps</h2>
         <ul>
