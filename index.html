@@ -724,7 +724,11 @@ th, td {
             Among the 18 reviewed studies, only S18 explicitly investigates LVLM-based fake news detection. The majority of studies focus on CNN, RNN, transformer fusion, GNN-based approaches (S1–S17).
         </li>
 
-    
+        <li>
+            <strong>Need for Lightweight / Frozen VLM Methods for Consumer-Grade Hardware:</strong>
+            Most LVLM-based studies focus on large-scale fine-tuning or cloud deployment (MERF, LVLM surveys). Few studies consider parameter-efficient methods suitable for local, low-resource setups. This gap is critical for practical deployment on IFND and small-scale hardware.:contentReference[oaicite:2]{index=2}
+            
+        </li>
     </ul>
 
   
@@ -737,6 +741,137 @@ th, td {
        </ul>
     </div>
 
+    <div class="slide">
+    <h2>IFND Replication Methodology</h2>
+
+    <div style="font-size:1.05em; line-height:1.7; margin-top:20px;">
+
+        <p><strong>1. Load Recovered IFND Multimodal Dataset</strong><br>
+        23,809 matched text–image records</p>
+
+        <p><strong>2. Apply IFND Text Preprocessing</strong><br>
+        Lowercasing → Number removal → Punctuation and symbols removal → Stopword removal → Snowball stemming</p>
+
+        <p><strong>3. Remove Duplicate Statements</strong><br>
+        After removing 126 duplicates remains <strong>23,683 records</strong></p>
+
+        <p><strong>4. Encode Labels</strong><br>
+        TRUE = 1, FAKE = 0</p>
+
+        <p><strong>5. Traditional ML Replication</strong><br>
+        TF-IDF → Naive Bayes, KNN, Decision Tree, Logistic Regression, Random Forest → 10-fold Cross Validation</p>
+
+       <!-- <p><strong>6. Deep Learning Replication</strong><br>
+        One-hot encoding → Padding to 50 tokens → 67% Train / 33% Test → LSTM</p>
+
+        <p style="text-align:center;">↓</p>
+
+        <p><strong>7. Compare with Published IFND Results</strong><br>
+        Published benchmark vs recovered subset performance</p> -->
+
+    </div>
+
+</div>
+
+<div class="slide">
+    <h2>Traditional ML Replication Results</h2>
+
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Published IFND</th>
+            <th>Current Subset</th>
+        </tr>
+        <tr>
+            <td>Random Forest</td>
+            <td>94.00%</td>
+            <td><strong>94.13%</strong></td>
+        </tr>
+        <tr>
+            <td>Logistic Regression</td>
+            <td>93.30%</td>
+            <td>92.98%</td>
+        </tr>
+        <tr>
+            <td>Naive Bayes</td>
+            <td>87.50%</td>
+            <td>91.86%</td>
+        </tr>
+        <tr>
+            <td>Decision Tree</td>
+            <td>91.40%</td>
+            <td>91.22%</td>
+        </tr>
+        <tr>
+            <td>KNN</td>
+            <td>90.20%</td>
+            <td>85.14%</td>
+        </tr>
+    </table>
+</div>
+
+<div class="slide">
+    <h2>IFND LSTM Replication Results</h2>
+
+    <div class="grid-container">
+        <div>
+            <h3>Reconstructed IFND LSTM Setup</h3>
+            <table>
+                <tr><th>Component</th><th>Setting</th></tr>
+                <tr><td>Dataset</td><td>23 683 cleaned records</td></tr>
+                <tr><td>Train / Test Split</td><td>67%:33%</td></tr>
+                <tr><td>Sequence Length</td><td>50</td></tr>
+                <tr><td>Embedding</td><td>5,000×40</td></tr>
+                <tr><td>Total Parameters</td><td>256 501</td></tr>
+                <tr><td>Epochs</td><td>10 / 64</td></tr>
+            </table>
+        </div>
+
+        <div>
+            <h3>Accuracy Comparison</h3>
+            <table>
+                <tr>
+                    <th>Model</th>
+                    <th>Published IFND</th>
+                    <th>Current Subset</th>
+                </tr>
+                <tr>
+                    <td>LSTM</td>
+                    <td>92.60%</td>
+                    <td>91.39%</td>
+                </tr>
+            </table>
+
+            <h3>Test Performance</h3>
+            <table>
+                <tr><th>Metric</th><th>Value</th></tr>
+                <tr><td>Accuracy</td><td>91.39%</td></tr>
+                <tr><td>Precision - TRUE</td><td>93.89%</td></tr>
+                <tr><td>Recall - TRUE</td><td>93.23%</td></tr>
+                <tr><td>F1 - TRUE</td><td>93.56%</td></tr>
+                <tr><td>FAKE Recall</td><td>87.65%</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <table style="margin-top:15px;">
+        <tr>
+            <th></th>
+            <th>Predicted FAKE</th>
+            <th>Predicted TRUE</th>
+        </tr>
+        <tr>
+            <th>Actual FAKE</th>
+            <td><strong>2,256</strong></td>
+            <td>318</td>
+        </tr>
+        <tr>
+            <th>Actual TRUE</th>
+            <td>355</td>
+            <td><strong>4,887</strong></td>
+        </tr>
+    </table>
+</div>
 
     <a class="prev" onclick="plusSlides(-1)">❮</a>
     <a class="next" onclick="plusSlides(1)">❯</a>
