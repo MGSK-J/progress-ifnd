@@ -907,6 +907,563 @@ Evaluation Method is 10-Fold Cross-Validation
 </div>
 
 <div class="slide">
+    <h2>Text Representation Experimental Design</h2>
+
+    <div style="font-size:1.05em; line-height:1.7;">
+
+        <p><strong>Common Pipeline</strong></p>
+
+        <p style="text-align:center; font-size:1.2em;">
+            Raw Text -> Feature Representation -> Logistic Regression -> Evaluation
+        </p>
+        <hr>
+
+        <p><strong>Controlled Components</strong></p>
+
+        <ul>
+            <li>Same independent train/test split -> 67% : 33%</li>
+            <li>Common Classifier: Logistic Regression</li>
+            <li>Evaluation: Accuracy, Precision, Recall, F1</li>
+            <li>ROC-AUC and Average Precision also reported</li>
+            <li>10-fold cross-validation used</li>
+        </ul>
+
+        <p>
+            Purpose: Isolate only the effect of the feature representation rather than changing classifiers
+        </p>
+
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Experiment 1: TF-IDF + Logistic Regression</h2>
+
+    <p>
+        <strong>Why?</strong>
+        TF-IDF was selected as the traditional statistical baseline because it was used in IFND paper.
+    </p>
+
+    <p><strong>Procedure</strong></p>
+
+    <p style="text-align:center; font-size:1.15em;">
+        Text → TF-IDF Vectorisation → Logistic Regression → Prediction
+    </p>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Test Result</th>
+        </tr>
+        <tr><td>Accuracy</td><td><strong>93.6%</strong></td></tr>
+        <tr><td>Macro F1</td><td><strong>92.4%</strong></td></tr>
+        <tr><td>FAKE F1</td><td><strong>89.5%</strong></td></tr>
+        <tr><td>ROC-AUC</td><td><strong>0.99</strong></td></tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Interpretation:</strong>
+        TF-IDF provides a strong traditional baseline for English misinformation
+        detection despite not modelling contextual semantics.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Experiment 2–4: Static Word Embeddings</h2>
+
+    <p>
+        Static embeddings were investigated to determine whether distributed
+        semantic representations improve over sparse TF-IDF features.
+    </p>
+
+    <table>
+        <tr>
+            <th>Representation</th>
+            <th>Classifier</th>
+            <th>Test Accuracy</th>
+            <th>Macro F1</th>
+        </tr>
+
+        <tr>
+            <td>Word2Vec</td>
+            <td>Logistic Regression</td>
+            <td>≈93%</td>
+            <td>≈92%</td>
+        </tr>
+
+        <tr>
+            <td>GloVe</td>
+            <td>Logistic Regression</td>
+            <td>88.34%</td>
+            <td>86.49%</td>
+        </tr>
+
+        <tr>
+            <td>FastText</td>
+            <td>Logistic Regression</td>
+            <td>93.10%</td>
+            <td>91.96%</td>
+        </tr>
+    </table>
+
+   <!-- <p style="margin-top:20px;">
+        <strong>Observation:</strong>
+        Static embeddings provide semantic information, but their performance
+        varies substantially according to the representation and its ability
+        to capture word-level and subword information.
+    </p> -->
+</div>
+
+<div class="slide">
+    <h2>Experiment 5: Sentence-BERT Embeddings</h2>
+
+    <p>
+        Sentence-BERT was introduced to investigate whether sentence-level
+        contextual representations can capture misinformation-related semantic
+        information more effectively than static word embeddings.
+    </p>
+
+    <p style="text-align:center; font-size:1.15em;">
+        Text -> SBERT -> 384-dimensional sentence embedding
+        -> Logistic Regression
+    </p>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Test Result</th>
+        </tr>
+
+        <tr><td>Accuracy</td><td><strong>94.97%</strong></td></tr>
+        <tr><td>Macro F1</td><td><strong>94.20%</strong></td></tr>
+        <tr><td>FAKE F1</td><td><strong>92.08%</strong></td></tr>
+        <tr><td>ROC-AUC</td><td><strong>0.9769</strong></td></tr>
+        <tr><td>Average Precision</td><td><strong>0.9680</strong></td></tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Observation:</strong>
+        Sentence-level contextual embeddings improved over the static embedding
+        approaches and provided one of the strongest frozen-representation results.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Experiment 6: XLM-R Embeddings + Logistic Regression</h2>
+
+    <p>
+        XLM-R was investigated because the long-term research direction includes
+        low-resource Sinhala misinformation detection and therefore requires a
+        multilingual representation.
+    </p>
+
+    <p style="text-align:center; font-size:1.15em;">
+        English Text -> XLM-R -> 768-dimensional embedding
+        -> Logistic Regression
+    </p>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Test Result</th>
+        </tr>
+
+        <tr><td>Accuracy</td><td><strong>94.67%</strong></td></tr>
+        <tr><td>Macro F1</td><td><strong>93.88%</strong></td></tr>
+        <tr><td>FAKE F1</td><td><strong>91.69%</strong></td></tr>
+        <tr><td>ROC-AUC</td><td><strong>0.9788</strong></td></tr>
+        <tr><td>Average Precision</td><td><strong>0.9701</strong></td></tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Key point:</strong>
+        XLM-R performs strongly even without task-specific fine-tuning,
+        motivating its investigation for cross-lingual transfer.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Experiment 7: Fine-Tuned XLM-R</h2>
+
+    <p>
+        The frozen XLM-R experiment was followed by task-specific fine-tuning
+        using the raw English text and misinformation labels.
+    </p>
+
+    <p style="text-align:center; font-size:1.15em;">
+        Raw Text → XLM-R Fine-Tuning → Classification Head → Prediction
+    </p>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Test Result</th>
+        </tr>
+
+        <tr><td>Accuracy</td><td><strong>97.63%</strong></td></tr>
+        <tr><td>Precision</td><td><strong>97.74%</strong></td></tr>
+        <tr><td>Recall</td><td><strong>95.11%</strong></td></tr>
+        <tr><td>F1</td><td><strong>96.41%</strong></td></tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Training progression:</strong>
+    </p>
+
+    <ul>
+        <li>Epoch 1 — Accuracy: 96.87%, F1: 95.36%</li>
+        <li>Epoch 2 — Accuracy: 97.67%, F1: 96.49%</li>
+        <li>Epoch 3 — Accuracy: 97.63%, F1: 96.41%</li>
+    </ul>
+
+    <p>
+        <strong>Observation:</strong>
+        Task-specific adaptation substantially improved performance compared
+        with using frozen XLM-R embeddings.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>High-Resource English: Feature Representation Comparison</h2>
+
+    <table>
+        <tr>
+            <th>Representation</th>
+            <th>Classifier</th>
+            <th>Accuracy</th>
+            <th>Macro F1</th>
+        </tr>
+
+        <tr>
+            <td>TF-IDF</td>
+            <td>Logistic Regression</td>
+            <td>≈93.6%</td>
+            <td>≈92.4%</td>
+        </tr>
+
+        <tr>
+            <td>Word2Vec</td>
+            <td>Logistic Regression</td>
+            <td>≈93%</td>
+            <td>≈92%</td>
+        </tr>
+
+        <tr>
+            <td>GloVe</td>
+            <td>Logistic Regression</td>
+            <td>88.34%</td>
+            <td>86.49%</td>
+        </tr>
+
+        <tr>
+            <td>FastText</td>
+            <td>Logistic Regression</td>
+            <td>93.10%</td>
+            <td>91.96%</td>
+        </tr>
+
+        <tr>
+            <td>SBERT</td>
+            <td>Logistic Regression</td>
+            <td>94.97%</td>
+            <td>94.20%</td>
+        </tr>
+
+        <tr>
+            <td>XLM-R</td>
+            <td>Logistic Regression</td>
+            <td>94.67%</td>
+            <td>93.88%</td>
+        </tr>
+
+        <tr class="highlight">
+            <td><strong>Fine-tuned XLM-R</strong></td>
+            <td><strong>Classification Head</strong></td>
+            <td><strong>97.63%</strong></td>
+            <td><strong>≈96.4%</strong></td>
+        </tr>
+    </table>
+
+    <p style="margin-top:18px;">
+        <strong>Finding:</strong>
+        Contextual transformer representations outperform most fixed
+        representations, while task-specific fine-tuning produces the strongest
+        English result.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Transition to the Low-Resource Sinhala Setting</h2>
+
+    <p>
+        The English experiments demonstrated that stronger contextual
+        representations and task-specific adaptation can substantially improve
+        misinformation detection.
+    </p>
+
+    <p>
+        The next question was whether the same representation strategy remains
+        effective when labelled data is severely limited.
+    </p>
+
+    <div class="grid-container">
+
+        <div class="metric-box">
+            <strong>English</strong><br><br>
+            23,809 samples<br>
+            2 classes
+        </div>
+
+        <div class="metric-box gold">
+            <strong>Sinhala</strong><br><br>
+            3,000 samples<br>
+            4 classes
+        </div>
+
+    </div>
+
+    <p style="margin-top:20px;">
+        <strong>Additional Sinhala challenge:</strong>
+        severe class imbalance, including only 27 FALSE and 83 PARTIAL samples.
+    </p>
+
+    <p>
+        This creates a controlled opportunity to investigate the effect of
+        resource availability on representation learning.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Experiment 8: Sinhala TF-IDF Baseline</h2>
+
+    <p>
+        TF-IDF was first evaluated on Sinhala to establish a traditional
+        low-resource baseline before introducing multilingual transformer
+        representations.
+    </p>
+
+    <p style="text-align:center; font-size:1.1em;">
+        Sinhala Text → TF-IDF (10,000 features)
+        → Logistic Regression
+    </p>
+
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Result</th>
+        </tr>
+
+        <tr><td>Accuracy</td><td><strong>69.17%</strong></td></tr>
+        <tr><td>Macro F1</td><td><strong>43.41%</strong></td></tr>
+        <tr><td>Weighted F1</td><td>69.49%</td></tr>
+        <tr><td>10-Fold Macro F1</td><td><strong>43.40% ± 5.52%</strong></td></tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Important observation:</strong>
+        Accuracy is substantially higher than Macro F1 because the UNCERTAIN
+        class dominates the dataset.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Experiment 9: Sinhala XLM-R Representation</h2>
+
+    <p>
+        XLM-R was evaluated as a multilingual contextual representation to
+        investigate whether pretrained multilingual knowledge can compensate
+        for limited Sinhala training data.
+    </p>
+
+    <table>
+        <tr>
+            <th>Approach</th>
+            <th>Accuracy</th>
+            <th>Macro F1</th>
+        </tr>
+
+        <tr>
+            <td>TF-IDF + LR</td>
+            <td><strong>69.17%</strong></td>
+            <td><strong>43.41%</strong></td>
+        </tr>
+
+        <tr>
+            <td>XLM-R Embedding + LR</td>
+            <td>60.67%</td>
+            <td>36.50%</td>
+        </tr>
+
+        <tr>
+            <td>Fine-tuned XLM-R</td>
+            <td>62.83%</td>
+            <td>19.29%</td>
+        </tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Key finding:</strong>
+        Multilingual pretraining alone did not overcome the low-resource and
+        highly imbalanced Sinhala setting.
+    </p>
+
+    <p>
+        Fine-tuning further resulted in majority-class prediction, with the
+        model predicting UNCERTAIN for all test samples.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Sinhala Fine-Tuned XLM-R: Failure Analysis</h2>
+
+    <table>
+        <tr>
+            <th>Class</th>
+            <th>Samples</th>
+            <th>F1</th>
+        </tr>
+
+        <tr>
+            <td>CREDIBLE</td>
+            <td>1,003</td>
+            <td>0.00</td>
+        </tr>
+
+        <tr>
+            <td>FALSE</td>
+            <td>27</td>
+            <td>0.00</td>
+        </tr>
+
+        <tr>
+            <td>PARTIAL</td>
+            <td>83</td>
+            <td>0.00</td>
+        </tr>
+
+        <tr>
+            <td>UNCERTAIN</td>
+            <td>1,887</td>
+            <td><strong>0.77</strong></td>
+        </tr>
+    </table>
+
+    <div class="grid-container">
+
+        <div class="metric-box">
+            <strong>Accuracy</strong><br><br>
+            62.83%
+        </div>
+
+        <div class="metric-box gold">
+            <strong>Macro F1</strong><br><br>
+            19.29%
+        </div>
+
+    </div>
+
+    <p style="margin-top:20px;">
+        The model effectively learned the dominant UNCERTAIN class rather than
+        learning reliable decision boundaries for all four classes.
+    </p>
+
+    <p>
+        <strong>Research implication:</strong>
+        Multilingual pretraining is not sufficient by itself under severe
+        annotation scarcity and class imbalance.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>High-Resource vs Low-Resource Findings</h2>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>English</th>
+            <th>Sinhala</th>
+        </tr>
+
+        <tr>
+            <td>Dataset Size</td>
+            <td>23,809</td>
+            <td>3,000</td>
+        </tr>
+
+        <tr>
+            <td>Classification</td>
+            <td>Binary</td>
+            <td>4-class</td>
+        </tr>
+
+        <tr>
+            <td>Best Current Approach</td>
+            <td>Fine-tuned XLM-R</td>
+            <td>TF-IDF</td>
+        </tr>
+
+        <tr>
+            <td>Best Accuracy</td>
+            <td><strong>97.63%</strong></td>
+            <td><strong>69.17%</strong></td>
+        </tr>
+
+        <tr>
+            <td>Best Macro F1</td>
+            <td><strong>≈96.4%</strong></td>
+            <td><strong>43.41%</strong></td>
+        </tr>
+    </table>
+
+    <p style="margin-top:20px;">
+        <strong>Emerging research problem:</strong>
+    </p>
+
+    <p style="text-align:center; font-size:1.2em;">
+        Strong multilingual representations
+        ≠
+        automatic solution for low-resource misinformation detection
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Research Gap Emerging from Experimental Evidence</h2>
+
+    <div style="font-size:1.15em; text-align:center; line-height:2; margin-top:30px;">
+
+        <p>
+            <strong>High-resource English</strong>
+        </p>
+
+        <p>Fine-tuned multilingual representation → Strong performance</p>
+
+        <p>↓</p>
+
+        <p>
+            <strong>Low-resource Sinhala</strong>
+        </p>
+
+        <p>Direct multilingual fine-tuning → Poor minority-class performance</p>
+
+        <p>↓</p>
+
+        <p>
+            <strong>Research Need</strong>
+        </p>
+
+        <p>
+            Resource-aware adaptation strategies
+        </p>
+
+    </div>
+
+    <p style="margin-top:20px;">
+        The current experiments therefore motivate investigation of
+        cross-lingual transfer, parameter-efficient adaptation, and data-efficient
+        learning before extending the framework to multimodal reasoning.
+    </p>
+</div>
+
+<div class="slide">
     <h2>Fake News Datasets Available</h2>
     <h3>Overview of Multimodal and Related Fake News Benchmarks</h3>
 
