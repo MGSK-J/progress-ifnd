@@ -691,7 +691,7 @@ th, td {
         23,809 matched text–image records</p>
 
         <p><strong>2. Apply IFND Text Preprocessing</strong><br>
-        Lowercasing → Number removal → Punctuation and symbols removal → Stopword removal → Snowball stemming</p>
+        Lowercasing -> Number removal -> Punctuation and symbols removal -> Stopword removal -> Snowball stemming</p>
 
         <p><strong>3. Remove Duplicate Statements</strong><br>
         After removing 126 duplicates remains <strong>23,683 records</strong></p>
@@ -741,7 +741,7 @@ th, td {
     </div>
 </div>
 
-<div class="slide">
+<!--<div class="slide">
 
 <h2>10-Fold Cross-Validation Results</h2>
 
@@ -797,50 +797,75 @@ th, td {
 </table>
 
 <div class="best">
-
 </div>
+
+
 
 <div class="footer">
 Evaluation Method is 10-Fold Cross-Validation
-</div>
-
-</div>
+</div> -->
 
 <div class="slide">
-    <h2>Traditional ML Replication Results</h2>
+    <h2>10-Fold Cross-Validation Validation</h2>
 
-    <table>
-        <tr>
-            <th>Model</th>
-            <th>Published IFND</th>
-            <th>Current Subset</th>
-        </tr>
-        <tr>
-            <td>Random Forest</td>
-            <td>94.00%</td>
-            <td><strong>94.13%</strong></td>
-        </tr>
-        <tr>
-            <td>Logistic Regression</td>
-            <td>93.30%</td>
-            <td>92.98%</td>
-        </tr>
-        <tr>
-            <td>Naive Bayes</td>
-            <td>87.50%</td>
-            <td>91.86%</td>
-        </tr>
-        <tr>
-            <td>Decision Tree</td>
-            <td>91.40%</td>
-            <td>91.22%</td>
-        </tr>
-        <tr>
-            <td>KNN</td>
-            <td>90.20%</td>
-            <td>85.14%</td>
-        </tr>
-    </table>
+   <table>
+
+<tr>
+<th>Fold</th>
+<th>Accuracy</th>
+</tr>
+
+<tr>
+<td>Fold 1</td>
+<td>93.64%</td>
+</tr>
+
+<tr>
+<td>Fold 2</td>
+<td>94.23%</td>
+</tr>
+
+<tr>
+<td>Fold 3</td>
+<td>93.37%</td>
+</tr>
+
+<tr>
+<td>Fold 4</td>
+<td>93.57%</td>
+</tr>
+
+<tr>
+<td>Fold 5</td>
+<td>94.96%</td>
+</tr>
+
+<tr>
+<td>Fold 6</td>
+<td>93.63%</td>
+</tr>
+
+<tr>
+<td>Fold 7</td>
+<td>93.44%</td>
+</tr>
+
+<tr>
+<td>Fold 8</td>
+<td>94.63%</td>
+</tr>
+
+<tr>
+<td>Fold 9</td>
+<td>94.03%</td>
+</tr>
+
+<tr>
+<td>Fold 10</td>
+<td>93.63%</td>
+</tr>
+
+</table>
 </div>
 
 <div class="slide">
@@ -946,7 +971,7 @@ Evaluation Method is 10-Fold Cross-Validation
     <p><strong>Procedure</strong></p>
 
     <p style="text-align:center; font-size:1.15em;">
-        Text → TF-IDF Vectorisation → Logistic Regression → Prediction
+        Text -> TF-IDF Vectorisation -> Logistic Regression -> Prediction
     </p>
 
     <table>
@@ -986,8 +1011,8 @@ Evaluation Method is 10-Fold Cross-Validation
         <tr>
             <td>Word2Vec</td>
             <td>Logistic Regression</td>
-            <td>≈93%</td>
-            <td>≈92%</td>
+            <td>93%</td>
+            <td>92%</td>
         </tr>
 
         <tr>
@@ -1090,7 +1115,7 @@ Evaluation Method is 10-Fold Cross-Validation
     </p>
 
     <p style="text-align:center; font-size:1.15em;">
-        Raw Text → XLM-R Fine-Tuning → Classification Head → Prediction
+        Raw Text -> XLM-R Fine-Tuning -> Classification Head -> Prediction
     </p>
 
     <table>
@@ -1136,15 +1161,15 @@ Evaluation Method is 10-Fold Cross-Validation
         <tr>
             <td>TF-IDF</td>
             <td>Logistic Regression</td>
-            <td>≈93.6%</td>
-            <td>≈92.4%</td>
+            <td>93.6%</td>
+            <td>92.4%</td>
         </tr>
 
         <tr>
             <td>Word2Vec</td>
             <td>Logistic Regression</td>
-            <td>≈93%</td>
-            <td>≈92%</td>
+            <td>93%</td>
+            <td>92%</td>
         </tr>
 
         <tr>
@@ -1179,7 +1204,7 @@ Evaluation Method is 10-Fold Cross-Validation
             <td><strong>Fine-tuned XLM-R</strong></td>
             <td><strong>Classification Head</strong></td>
             <td><strong>97.63%</strong></td>
-            <td><strong>≈96.4%</strong></td>
+            <td><strong>96.4%</strong></td>
         </tr>
     </table>
 
@@ -1195,41 +1220,59 @@ Evaluation Method is 10-Fold Cross-Validation
     <h2>Transition to the Low-Resource Sinhala Setting</h2>
 
     <p>
-        The English experiments demonstrated that stronger contextual
-        representations and task-specific adaptation can substantially improve
-        misinformation detection.
-    </p>
-
-    <p>
-        The next question was whether the same representation strategy remains
+        The next question was whether the same representation strategies remain
         effective when labelled data is severely limited.
     </p>
 
     <div class="grid-container">
 
         <div class="metric-box">
-            <strong>English</strong><br><br>
-            23,809 samples<br>
-            2 classes
+            <strong>English – High Resource</strong><br><br>
+            <span style="font-size:1.4em;">23,809</span> samples<br>
+            2 classes<br>
+            TRUE / FAKE
         </div>
 
         <div class="metric-box gold">
-            <strong>Sinhala</strong><br><br>
-            3,000 samples<br>
-            4 classes
+            <strong>Sinhala – Low Resource</strong><br><br>
+            <span style="font-size:1.4em;">3,000</span> samples<br>
+            4 classes<br>
+            CREDIBLE / FALSE / PARTIAL / UNCERTAIN
         </div>
 
     </div>
 
-    <p style="margin-top:20px;">
-        <strong>Additional Sinhala challenge:</strong>
-        severe class imbalance, including only 27 FALSE and 83 PARTIAL samples.
-    </p>
+    <h3 style="margin-top:25px;">Sinhala Dataset Characteristics</h3>
 
-    <p>
-        This creates a controlled opportunity to investigate the effect of
-        resource availability on representation learning.
+    <div style="display:flex; justify-content:center; gap:30px; margin-top:15px;">
+
+        <div>
+            <strong>UNCERTAIN</strong><br>
+            1,887 (62.90%)
+        </div>
+
+        <div>
+            <strong>CREDIBLE</strong><br>
+            1,003 (33.43%)
+        </div>
+
+        <div>
+            <strong>PARTIAL</strong><br>
+            83 (2.77%)
+        </div>
+
+        <div>
+            <strong>FALSE</strong><br>
+            27 (0.90%)
+        </div>
+
+    </div>
+
+    <p style="margin-top:22px;">
+        <strong>Experimental split:</strong>
+        2,400 (80%) : 600 (20%).
     </p>
+   
 </div>
 
 <div class="slide">
@@ -1242,8 +1285,8 @@ Evaluation Method is 10-Fold Cross-Validation
     </p>
 
     <p style="text-align:center; font-size:1.1em;">
-        Sinhala Text → TF-IDF (10,000 features)
-        → Logistic Regression
+        Sinhala Text -> TF-IDF (10,000 features)
+        -> Logistic Regression
     </p>
 
     <table>
@@ -1409,7 +1452,7 @@ Evaluation Method is 10-Fold Cross-Validation
 
         <tr>
             <td>Best Macro F1</td>
-            <td><strong>≈96.4%</strong></td>
+            <td><strong>96.4%</strong></td>
             <td><strong>43.41%</strong></td>
         </tr>
     </table>
@@ -1426,41 +1469,45 @@ Evaluation Method is 10-Fold Cross-Validation
 </div>
 
 <div class="slide">
-    <h2>Research Gap Emerging from Experimental Evidence</h2>
+    <h2>Research Gap and Emerging Research Directions</h2>
 
-    <div style="font-size:1.15em; text-align:center; line-height:2; margin-top:30px;">
-
-        <p>
-            <strong>High-resource English</strong>
-        </p>
-
-        <p>Fine-tuned multilingual representation → Strong performance</p>
-
-        <p>↓</p>
+    <div style="font-size:1.05em; line-height:1.7; margin-top:20px;">
 
         <p>
-            <strong>Low-resource Sinhala</strong>
+            <strong>High-resource English</strong><br>
+            Fine-tuned multilingual representation → Strong performance
+            <strong>Low-resource Sinhala</strong><br>
+            Direct multilingual fine-tuning → Poor minority-class performance
         </p>
+        <p><strong>1. Cross-lingual Transfer & Text Feature Adaptation</strong></p>
+      <!-- <ul>
+            <li>Lexical, syntactic, stylistic features</li>
+            <li>Sentiment, emotion, certainty indicators</li>
+            <li>Named entities, numbers, dates, quotations, attribution patterns</li>
+            <li>Hybrid handcrafted + neural representations</li>
+            <li>Word embeddings and contextual sentence embeddings</li>
+        </ul> --> 
 
-        <p>Direct multilingual fine-tuning → Poor minority-class performance</p>
+        <p><strong>2. Neural Architecture Exploration</strong></p>
+      <!--  <ul>
+            <li>CNN, BiLSTM, GRU, BiLSTM with attention</li>
+            <li>Hierarchical attention networks</li>
+            <li>Headline–body interaction models</li>
+            <li>Lightweight transformer and hybrid neural-linguistic models</li>
+        </ul>-->
 
-        <p>↓</p>
+        <p><strong>3. Adaptive Representation Learning</strong></p>
+       <!-- <ul>
+            <li>Token / sentence attention mechanisms</li>
+            <li>Representation-level attention and gating</li>
+            <li>Dynamic feature-representation selection</li>
+        </ul> -->
 
-        <p>
-            <strong>Research Need</strong>
-        </p>
+        <p><strong>4. Dataset Bias & Generalization</strong></p>
 
-        <p>
-            Resource-aware adaptation strategies
-        </p>
+        <p><strong>5. Low-resource Sinhala Extension</strong></p>
 
     </div>
-
-    <p style="margin-top:20px;">
-        The current experiments therefore motivate investigation of
-        cross-lingual transfer, parameter-efficient adaptation, and data-efficient
-        learning before extending the framework to multimodal reasoning.
-    </p>
 </div>
 
 <div class="slide">
