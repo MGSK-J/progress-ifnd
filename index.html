@@ -803,7 +803,7 @@ th, td {
 
 <div class="footer">
 Evaluation Method is 10-Fold Cross-Validation
-</div> -->
+</div>
 
 <div class="slide">
     <h2>10-Fold Cross-Validation Validation</h2>
@@ -866,7 +866,7 @@ Evaluation Method is 10-Fold Cross-Validation
 </tr>
 
 </table>
-</div>
+</div> 
 
 <div class="slide">
     <h2>IFND LSTM Replication Results</h2>
@@ -1035,7 +1035,7 @@ Evaluation Method is 10-Fold Cross-Validation
         Static embeddings provide semantic information, but their performance
         varies substantially according to the representation and its ability
         to capture word-level and subword information.
-    </p> -->
+    </p> 
 </div>
 
 <div class="slide">
@@ -1139,13 +1139,7 @@ Evaluation Method is 10-Fold Cross-Validation
         <li>Epoch 2 — Accuracy: 97.67%, F1: 96.49%</li>
         <li>Epoch 3 — Accuracy: 97.63%, F1: 96.41%</li>
     </ul>
-
-    <p>
-        <strong>Observation:</strong>
-        Task-specific adaptation substantially improved performance compared
-        with using frozen XLM-R embeddings.
-    </p>
-</div>
+</div> -->
 
 <div class="slide">
     <h2>High-Resource English: Feature Representation Comparison</h2>
@@ -1201,18 +1195,217 @@ Evaluation Method is 10-Fold Cross-Validation
         </tr>
 
         <tr class="highlight">
-            <td><strong>Fine-tuned XLM-R</strong></td>
-            <td><strong>Classification Head</strong></td>
-            <td><strong>97.63%</strong></td>
-            <td><strong>96.4%</strong></td>
+            <td>Fine-tuned XLM-R</td>
+            <td>Logistic Regression</td>
+            <td>97.77%</td>
+            <td>97.49%</td>
         </tr>
     </table>
+</div>
 
-    <p style="margin-top:18px;">
-        <strong>Finding:</strong>
-        Contextual transformer representations outperform most fixed
-        representations, while task-specific fine-tuning produces the strongest
-        English result.
+<div class="slide">
+    <h2>Feature Representations Used on IFND</h2>
+    <h3>Frequency of feature-extraction methods across 22 collected entries from the IFND literature</h3>
+
+    <table class="dataset-table">
+        <thead>
+            <tr>
+                <th>Feature Family</th>
+                <th>Specific Methods (mentions)</th>
+                <th>Entries</th>
+                <th>Modality</th>
+                <th>Typically Paired With</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><strong>Transformer text encoders</strong></td>
+                <td>BERT (5), RoBERTa / DistilRoBERTa (3), DistilBERT (2), S-BERT (2), Longformer (1), GBERT (1)</td>
+                <td>10</td>
+                <td>Text</td>
+                <td>Fine-tuned heads; LR / MLP on frozen embeddings</td>
+                <td>Most common family. Verify the GBERT paper actually used IFND.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Image features</strong></td>
+                <td>Pretrained CNN backbone (2), VGG16 (1), ResNet-50 (1), ViT (1), ConvNeXt (1), scene-graph generator (1)</td>
+                <td>6</td>
+                <td>Image</td>
+                <td>Concatenation or attention fusion</td>
+                <td>Progression from CNNs (VGG, ResNet) to ViT and ConvNeXt.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Sparse lexical</strong></td>
+                <td>TF-IDF (4), term frequency (1)</td>
+                <td>5</td>
+                <td>Text</td>
+                <td>LR, RF, DT, KNN, NB, SVM, XGBoost, MLP</td>
+                <td>Up to trigrams (~12,000 features). One TF-IDF entry needs verification.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Learned CNN / RNN features</strong></td>
+                <td>CNN, 1D ConvNet, LSTM, BiLSTM, CNN-LSTM hybrids (5)</td>
+                <td>5</td>
+                <td>Text</td>
+                <td>Neural head or classical ML (NB, RF, GB, XGBoost)</td>
+                <td>1D ConvNet features used to augment classical models.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Affective features</strong></td>
+                <td>VADER (3), emotion embeddings via DistilBERT / DistilRoBERTa (2)</td>
+                <td>4</td>
+                <td>Text</td>
+                <td>Fused with TF-IDF or transformer embeddings</td>
+                <td>Never used alone in the collected entries.</td>
+            </tr>
+
+            <tr>
+                <td><strong>LLM / VLM-based</strong></td>
+                <td>BERT + GPT hybrid (1), LLaMA-4-Scout-17B (1), LVLM (1), ChatGPT / Bard (1)</td>
+                <td>4</td>
+                <td>Text / Multimodal</td>
+                <td>Prompted or fine-tuned classifier</td>
+                <td>No CLIP / BLIP-style encoders appear in these entries.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Fusion mechanisms</strong></td>
+                <td>Attention with learnable modality weights (1), LSTM + VGG16 layer fusion (1), lexical-emotional fusion (1)</td>
+                <td>3</td>
+                <td>Multimodal</td>
+                <td>Final fake / real classifier</td>
+                <td>Learnable modality weighting is closest to the proposed reliability-weighted fusion.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Static word embeddings</strong></td>
+                <td>GloVe (1), generic pretrained embeddings (1)</td>
+                <td>2</td>
+                <td>Text</td>
+                <td>LSTM, BiLSTM, CNN-LSTM</td>
+                <td>GloVe Twitter vectors applied to news text (domain mismatch).</td>
+            </tr>
+
+            <tr>
+                <td><strong>Compressed representations</strong></td>
+                <td>&beta;-VAE (1), VAE on ViT features (1)</td>
+                <td>2</td>
+                <td>Text / Image</td>
+                <td>Dimensionality reduction before fusion</td>
+                <td>Recurring step before multimodal fusion.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Topic features</strong></td>
+                <td>Pachinko Allocation Model (1)</td>
+                <td>1</td>
+                <td>Text</td>
+                <td>Auxiliary thematic features</td>
+                <td>LDA excluded: it was used to build IFND, not as a downstream feature.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Entity / knowledge features</strong></td>
+                <td>BERT entity recognition + ConceptNet (1)</td>
+                <td>1</td>
+                <td>Text + Image</td>
+                <td>Knowledge-enhanced multimodal model</td>
+                <td>External knowledge retrieval, single occurrence.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="slide">
+    <h2>Evaluation Metrics Reported on IFND</h2>
+    <h3>Which metrics appear in 16 collected results entries, and how each is computed</h3>
+
+    <table class="dataset-table">
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Entries Reporting</th>
+                <th>How It Is Computed</th>
+                <th>Meaning for Fake News Detection</th>
+                <th>Observations</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><strong>Accuracy</strong></td>
+                <td>12</td>
+                <td>(TP + TN) / (TP + TN + FP + FN)</td>
+                <td>Share of all articles classified correctly</td>
+                <td>Primary metric in most entries. 5 entries report accuracy alone.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Recall</strong></td>
+                <td>9</td>
+                <td>TP / (TP + FN)</td>
+                <td>Of all fake articles, the share that is caught</td>
+                <td>Higher than precision in 5 of the 6 model results where both are given.</td>
+            </tr>
+
+            <tr>
+                <td><strong>F1-score</strong></td>
+                <td>9</td>
+                <td>2 &times; (Precision &times; Recall) / (Precision + Recall)</td>
+                <td>Harmonic mean of precision and recall</td>
+                <td>No entry states whether it is binary, macro or weighted F1.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Precision</strong></td>
+                <td>8</td>
+                <td>TP / (TP + FP)</td>
+                <td>Of articles flagged fake, the share that is truly fake (false-flag avoidance)</td>
+                <td>Only 8 of 16 entries report precision and recall together.</td>
+            </tr>
+
+            <tr>
+                <td><strong>MCC</strong></td>
+                <td>1</td>
+                <td>(TP&middot;TN &minus; FP&middot;FN) / &radic;((TP+FP)(TP+FN)(TN+FP)(TN+FN))</td>
+                <td>Single balanced score using all four confusion-matrix cells</td>
+                <td>Only 1 found.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Average Precision (PR curve)</strong></td>
+                <td>1</td>
+                <td>&Sigma; (R<sub>n</sub> &minus; R<sub>n-1</sub>) &times; P<sub>n</sub> across thresholds</td>
+                <td>Threshold-free summary of the precision-recall tradeoff</td>
+                <td>Only 1 found.</td>
+            </tr>
+
+            <tr>
+                <td><strong>Loss</strong></td>
+                <td>1</td>
+                <td>Typically binary cross-entropy: &minus;[y&middot;log(p) + (1&minus;y)&middot;log(1&minus;p)], averaged</td>
+                <td>Model fit during training and validation, not decision quality</td>
+                <td>Loss type is not stated.</td>
+            </tr>
+
+            <tr>
+                <td><strong>ROC-AUC</strong></td>
+                <td>0</td>
+                <td>Area under the TPR vs FPR curve</td>
+                <td>Threshold-free ranking quality</td>
+                <td>Not reported in any collected entry.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="font-size: 0.8em; margin-top: 10px;">
+      1. Accuracy dominates the reporting. 2. Threshold selection is not reported.
     </p>
 </div>
 
@@ -1272,9 +1465,114 @@ Evaluation Method is 10-Fold Cross-Validation
         <strong>Experimental split:</strong>
         2,400 (80%) : 600 (20%).
     </p>
-   
 </div>
 
+<div class="slide">
+    <h2>Decision Threshold Selection: Progress</h2>
+    <h3>Logistic regression + TF-IDF baseline on IFND</h3>
+
+    <table class="dataset-table">
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>1. Train logistic regression on the training set</td>
+                <td>Implemented</td>
+            </tr>
+            <tr>
+                <td>2. Generate probabilities on validation</td>
+                <td>Done</td>
+            </tr>
+            <tr>
+                <td>3. Try thresholds 0.01&ndash;0.99</td>
+                <td>Implemented</td>
+            </tr>
+            <tr>
+                <td>4. Calculate metrics at each threshold</td>
+                <td>Implemented</td>
+            </tr>
+            <tr>
+                <td>5. Select threshold by the primary objective</td>
+                <td>Implemented</td>
+            </tr>
+            <tr>
+                <td>6. Freeze the threshold</td>
+                <td>Implemented</td>
+            </tr>
+            <tr>
+                <td>7. Apply the frozen threshold to the test set once</td>
+                <td>Implemented</td>
+            </tr>
+            <tr>
+                <td>8. Report metrics after each experiment</td>
+                <td>Not Completed</td>
+            </tr>
+            <tr>
+                <td>9. Examine probability distribution by actual label</td>
+                <td>Not Completed</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 style="margin-top: 20px;">Threshold Selection Criteria</h3>
+
+    <table class="dataset-table">
+        <thead>
+            <tr>
+                <th>Your Criterion</th>
+                <th>Selection Rule</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><strong>Equal importance to Fake and TRUE</strong></td>
+                <td>Maximize balanced accuracy</td>
+                <td>Implemented (primary rule)</td>
+            </tr>
+            <tr>
+                <td><strong>Required fake recall</strong></td>
+                <td>Maximize precision subject to recall &ge; target</td>
+                <td>Implemented on validation only; not yet scored on test</td>
+            </tr>
+            <tr>
+                <td><strong>Balance precision and recall</strong></td>
+                <td>Maximize Fake F1</td>
+                <td>Not implemented</td>
+            </tr>
+            <tr>
+                <td><strong>Avoid false flags (stringent threshold)</strong></td>
+                <td>Maximize recall subject to precision &ge; target</td>
+                <td>Not implemented</td>
+            </tr>
+            <tr>
+                <td><strong>Minimize cost</strong></td>
+                <td>Minimize expected cost (FN cost &times; FN + FP cost &times; FP)</td>
+                <td>Not implemented</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="font-size: 0.8em; margin-top: 10px;">
+        Fake is the positive class. Thresholds are chosen on validation data only, and the test set is scored once per frozen threshold.
+    </p>
+</div>
+
+<div class="slide">
+    <h2>Anomaly Detection in the Low-Resource Sinhala Setting</h2>
+
+    <p>
+        Yet To Be Done
+    </p>
+
+</div>
+<!--
 <div class="slide">
     <h2>Experiment 8: Sinhala TF-IDF Baseline</h2>
 
@@ -1466,7 +1764,7 @@ Evaluation Method is 10-Fold Cross-Validation
         ≠
         automatic solution for low-resource misinformation detection
     </p>
-</div>
+</div>  -->
 
 <div class="slide">
     <h2>Research Gap and Emerging Research Directions</h2>
