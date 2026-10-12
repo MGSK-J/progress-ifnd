@@ -204,6 +204,8 @@ th, td {
     border-radius: 8px;
     object-fit: contain;
 }
+
+.workflow { width: 94%; margin: 15px auto; text-align: center; font-family: Arial, sans-serif; } /* ---------- GENERAL BOX ---------- */ .box { border: 2px solid #333; border-radius: 8px; background: #fff; padding: 9px 12px; line-height: 1.3; box-sizing: border-box; } /* ---------- ARROWS ---------- */ .arrow { font-size: 24px; font-weight: bold; line-height: 1; height: 27px; display: flex; justify-content: center; align-items: center; } /* ---------- FULL DATA ---------- */ .full-data { width: 190px; margin: 0 auto; font-size: 17px; } /* ---------- DATA SPLIT ---------- */ .split-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; width: 88%; margin: 0 auto; } .split-box { width: 155px; min-height: 58px; justify-self: center; display: flex; flex-direction: column; justify-content: center; } /* ---------- THREE PATHS ---------- */ .main-path { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; width: 88%; margin: 0 auto; } .path { display: flex; flex-direction: column; align-items: center; } /* ---------- PROCESS BOXES ---------- */ .process { width: 180px; min-height: 58px; display: flex; align-items: center; justify-content: center; } .frozen { width: 180px; min-height: 58px; display: flex; align-items: center; justify-content: center; border: 3px solid #333; } /* ---------- TEST HELD-OUT BOX ---------- */ .test-column { padding-top: 0; } .held-out { width: 190px; min-height: 125px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px dashed #666; font-size: 13px; line-height: 1.35; } /* ---------- CONNECTION AREA ---------- */ .connection-area { width: 88%; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; height: 55px; position: relative; } /* The left and right paths connect horizontally into the final-development box. */ .connection-left, .connection-right { position: relative; height: 55px; } /* LEFT CONNECTION */ .connection-left { grid-column: 1; } .connection-left .vertical-line { position: absolute; right: 50%; top: 0; height: 27px; border-left: 2px solid #333; } .connection-left .horizontal-line { position: absolute; top: 27px; left: 50%; width: 100%; border-top: 2px solid #333; } .arrow-right { position: absolute; right: -8px; top: 14px; font-size: 22px; font-weight: bold; } /* RIGHT CONNECTION */ .connection-right { grid-column: 2; } .connection-right .vertical-line { position: absolute; left: 50%; top: 0; height: 27px; border-left: 2px solid #333; } .connection-right .horizontal-line { position: absolute; top: 27px; right: 50%; width: 100%; border-top: 2px solid #333; } .arrow-left { position: absolute; left: -8px; top: 14px; font-size: 22px; font-weight: bold; } /* ---------- FINAL DEVELOPMENT ---------- */ .final-development { width: 330px; margin: 0 auto; padding: 12px 16px; border: 3px solid #333; line-height: 1.35; } /* ---------- FINAL TEST ---------- */ .final-test { width: 330px; margin: 0 auto; padding: 12px 16px; border: 3px solid #333; line-height: 1.35; } .small-text { font-size: 11px; margin-top: 5px; } /* ---------- FINAL PERFORMANCE ---------- */ .performance { width: 280px; margin: 0 auto; padding: 11px; border: 3px solid #333; font-size: 16px; }
 </style>
 </head>
 
@@ -1201,6 +1203,12 @@ Evaluation Method is 10-Fold Cross-Validation
             <td>97.49%</td>
         </tr>
     </table>
+    
+    <h3>Plans on Future Work</h3>
+    <p>Representation vs performance</p>
+    <p>Does results stay same on different data?</p>
+    <p>Record how much the different extractors cost (time to extract features, memory used, model size)</p>
+    <p>Which extractor can I trust the most?</p>
 </div>
 
 <div class="slide">
@@ -1404,9 +1412,8 @@ Evaluation Method is 10-Fold Cross-Validation
         </tbody>
     </table>
 
-    <p style="font-size: 0.8em; margin-top: 10px;">
-      1. Accuracy dominates the reporting. 2. Threshold selection is not reported.
-    </p>
+    <p>1. Accuracy dominates the reporting. </p>
+    <p>2. Threshold selection is not reported yet in IFND literature. </p>
 </div>
 
 <div class="slide">
@@ -1467,111 +1474,245 @@ Evaluation Method is 10-Fold Cross-Validation
     </p>
 </div>
 
-<div class="slide">
-    <h2>Decision Threshold Selection: Progress</h2>
-    <h3>Logistic regression + TF-IDF baseline on IFND</h3>
+<div class="slide"> <h2>Experimental Workflow for Threshold Selection</h2>
+    <ol>
+        <li>
+            <strong>Split the Full Dataset</strong>
+            <ul>
+                <li>70% Training Set</li>
+                <li>15% Validation Set</li>
+                <li>15% Test Set</li>
+            </ul>
+        </li>
 
-    <table class="dataset-table">
-        <thead>
-            <tr>
-                <th>Step</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+        <li>
+            <strong>Perform 5-Fold Stratified Cross-Validation</strong>
+            <p>
+                Use the 70% training set for 5-fold stratified
+                cross-validation.
+            </p>
+        </li>
 
-        <tbody>
-            <tr>
-                <td>1. Train logistic regression on the training set</td>
-                <td>Implemented</td>
-            </tr>
-            <tr>
-                <td>2. Generate probabilities on validation</td>
-                <td>Done</td>
-            </tr>
-            <tr>
-                <td>3. Try thresholds 0.01&ndash;0.99</td>
-                <td>Implemented</td>
-            </tr>
-            <tr>
-                <td>4. Calculate metrics at each threshold</td>
-                <td>Implemented</td>
-            </tr>
-            <tr>
-                <td>5. Select threshold by the primary objective</td>
-                <td>Implemented</td>
-            </tr>
-            <tr>
-                <td>6. Freeze the threshold</td>
-                <td>Implemented</td>
-            </tr>
-            <tr>
-                <td>7. Apply the frozen threshold to the test set once</td>
-                <td>Implemented</td>
-            </tr>
-            <tr>
-                <td>8. Report metrics after each experiment</td>
-                <td>Not Completed</td>
-            </tr>
-            <tr>
-                <td>9. Examine probability distribution by actual label</td>
-                <td>Not Completed</td>
-            </tr>
-        </tbody>
-    </table>
+        <li>
+            <strong>Generate Out-of-Fold (OOF) Probabilities</strong>
+            <p>
+                Generate OOF probabilities for cross-validation
+                diagnostics and model evaluation during development.
+            </p>
+        </li>
 
-    <h3 style="margin-top: 20px;">Threshold Selection Criteria</h3>
+        <li>
+            <strong>Develop the Model and Tune Hyperparameters</strong>
+            <p>
+                Select the model configuration and hyperparameters
+                using the training data and cross-validation results.
+            </p>
+        </li>
 
-    <table class="dataset-table">
-        <thead>
-            <tr>
-                <th>Your Criterion</th>
-                <th>Selection Rule</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+        <li>
+            <strong>Generate Validation Probabilities</strong>
+            <p>
+                Use the 15% validation set to obtain predicted
+                probabilities from the selected model configuration.
+            </p>
+        </li>
 
-        <tbody>
-            <tr>
-                <td><strong>Equal importance to Fake and TRUE</strong></td>
-                <td>Maximize balanced accuracy</td>
-                <td>Implemented (primary rule)</td>
-            </tr>
-            <tr>
-                <td><strong>Required fake recall</strong></td>
-                <td>Maximize precision subject to recall &ge; target</td>
-                <td>Implemented on validation only; not yet scored on test</td>
-            </tr>
-            <tr>
-                <td><strong>Balance precision and recall</strong></td>
-                <td>Maximize Fake F1</td>
-                <td>Not implemented</td>
-            </tr>
-            <tr>
-                <td><strong>Avoid false flags (stringent threshold)</strong></td>
-                <td>Maximize recall subject to precision &ge; target</td>
-                <td>Not implemented</td>
-            </tr>
-            <tr>
-                <td><strong>Minimize cost</strong></td>
-                <td>Minimize expected cost (FN cost &times; FN + FP cost &times; FP)</td>
-                <td>Not implemented</td>
-            </tr>
-        </tbody>
-    </table>
+        <li>
+            <strong>Select the Decision Threshold</strong>
+            <p>
+                Determine the decision threshold using validation
+                probabilities and the chosen evaluation metric.
+            </p>
+        </li>
 
-    <p style="font-size: 0.8em; margin-top: 10px;">
-        Fake is the positive class. Thresholds are chosen on validation data only, and the test set is scored once per frozen threshold.
-    </p>
+        <li>
+            <strong>Freeze the Model Settings and Threshold</strong>
+            <p>
+                Finalize the model configuration, hyperparameters,
+                and decision threshold before evaluating the test set.
+            </p>
+        </li>
+
+        <li>
+            <strong>Refit the Final Model on 85% of the Dataset</strong>
+            <p>
+                Combine the training and validation sets and retrain
+                the model using the frozen model settings.
+            </p>
+        </li>
+
+        <li>
+            <strong>Evaluate on the Held-Out 15% Test Set</strong>
+            <p>
+                Apply the final model and frozen decision threshold
+                to the untouched test set. Do not use test results
+                to make further model or threshold decisions.
+            </p>
+        </li>
+
+        <li>
+            <strong>Report Final Test Performance</strong>
+            <p>
+                Calculate and report the final evaluation metrics
+                using the held-out test set.
+            </p>
+        </li>
+    </ol>
 </div>
 
-<div class="slide">
-    <h2>Anomaly Detection in the Low-Resource Sinhala Setting</h2>
 
-    <p>
-        Yet To Be Done
-    </p>
+<div class="slide">
+<h2>Threshold Selection</h2>
+
+<h3>1. Model Development & 5-Fold Cross-Validation</h3>
+
+<ul>
+    <li>Model: <strong>TF-IDF + Logistic Regression</strong></li>
+    <li>5-fold Stratified CV performed within the 70% training set only</li>
+    <li>TF-IDF refitted independently within each fold</li>
+    <li>OOF probabilities generated</li>
+</ul>
+
+<h3>2. Threshold Selection</h3>
+
+<ul>
+    <li>Development model fitted on the full 70% training set</li>
+    <li>Thresholds evaluated from <strong>0.01–0.99</strong></li>
+    <li>Primary criterion: <strong>Maximum Balanced Accuracy</strong></li>
+    <li>Selected threshold: <strong>0.26</strong></li>
+</ul>
+
+<table>
+<tr>
+    <th>Validation Metric</th>
+    <th>Result</th>
+</tr>
+<tr>
+    <td>Balanced Accuracy</td>
+    <td><strong>94.43%</strong></td>
+</tr>
+<tr>
+    <td>Fake Recall</td>
+    <td><strong>92.98%</strong></td>
+</tr>
+<tr>
+    <td>Fake Precision</td>
+    <td><strong>91.90%</strong></td>
+</tr>
+<tr>
+    <td>Fake F1</td>
+    <td><strong>92.44%</strong></td>
+</tr>
+</table>
+
+<p>
+<strong>Secondary analysis:</strong>
+Recall ≥ 90% → threshold <strong>0.35</strong> →
+Fake Recall <strong>90.38%</strong>, Fake Precision <strong>95.66%</strong>
+</p>
+
+<ul>
+    <li>Threshold <strong>0.26</strong> and model-development settings frozen</li>
+    <li>Final model refitted on 85% development data (Training + Validation)</li>
+    <li>Final evaluation performed on untouched <strong>15% test data</strong></li>
+</ul>
+<!--
+<table>
+<tr>
+    <th>Final Test Metric</th>
+    <th>Result</th>
+</tr>
+<!--<tr>
+    <td>Accuracy</td>
+    <td><strong>95.72%</strong></td>
+</tr>
+<tr>
+    <td>Balanced Accuracy</td>
+    <td><strong>95.06%</strong></td>
+</tr>
+<tr>
+    <td>Macro F1</td>
+    <td><strong>95.18%</strong></td>
+</tr>
+<tr>
+    <td>ROC-AUC</td>
+    <td><strong>98.19%</strong></td>
+</tr>
+<tr>
+    <td>PR-AUC</td>
+    <td><strong>97.86%</strong></td>
+</tr>
+<tr>
+    <td>Fake Precision</td>
+    <td><strong>94.09%</strong></td>
+</tr>
+<tr>
+    <td>Fake Recall</td>
+    <td><strong>93.07%</strong></td>
+</tr>
+<tr>
+    <td>Fake F1</td>
+    <td><strong>93.57%</strong></td>
+</tr>
+</table>
+-->
+
+<h3>3. Final Class-wise Performance</h3>
+
+<table>
+<tr>
+    <th>Class</th>
+    <th>Support</th>
+    <th>Precision</th>
+    <th>Recall</th>
+    <th>F1</th>
+</tr>
+<tr>
+    <td>TRUE</td>
+    <td>2,375</td>
+    <td>96.52%</td>
+    <td>97.05%</td>
+    <td>96.79%</td>
+</tr>
+<tr>
+    <td>Fake</td>
+    <td>1,197</td>
+    <td>94.09%</td>
+    <td>93.07%</td>
+    <td>93.57%</td>
+</tr>
+</table>
 
 </div>
+
+
+
+<div class="slide">
+    <h2>Anomaly Detection in the Low-Resource Sinhala Setting WorkPlan</h2>
+
+    <ol>
+        <li>Text preprocessing</li>
+
+        <li>
+            Data augmentation
+            <ol type="a">
+                <li>Lexical augmentation using similar words replacement</li>
+                <li>Multi-Pivot back-translation</li>
+                <li>Few-Shot LLM candidate generation</li>
+                <li>Semantic similarity filtering</li>
+            </ol>
+        </li>
+
+        <li>Weighted focal loss integration</li>
+
+        <li>Horizontal subset ensembling</li>
+
+        <li>Embedding synthesis</li>
+
+        <li>Hidden feature extraction</li>
+    </ol>
+</div>
+
 <!--
 <div class="slide">
     <h2>Experiment 8: Sinhala TF-IDF Baseline</h2>
@@ -1769,43 +1910,7 @@ Evaluation Method is 10-Fold Cross-Validation
 <div class="slide">
     <h2>Research Gap and Emerging Research Directions</h2>
 
-    <div style="font-size:1.05em; line-height:1.7; margin-top:20px;">
-
-        <p>
-            <strong>High-resource English</strong><br>
-            Fine-tuned multilingual representation → Strong performance
-            <strong>Low-resource Sinhala</strong><br>
-            Direct multilingual fine-tuning → Poor minority-class performance
-        </p>
-        <p><strong>1. Cross-lingual Transfer & Text Feature Adaptation</strong></p>
-      <!-- <ul>
-            <li>Lexical, syntactic, stylistic features</li>
-            <li>Sentiment, emotion, certainty indicators</li>
-            <li>Named entities, numbers, dates, quotations, attribution patterns</li>
-            <li>Hybrid handcrafted + neural representations</li>
-            <li>Word embeddings and contextual sentence embeddings</li>
-        </ul> --> 
-
-        <p><strong>2. Neural Architecture Exploration</strong></p>
-      <!--  <ul>
-            <li>CNN, BiLSTM, GRU, BiLSTM with attention</li>
-            <li>Hierarchical attention networks</li>
-            <li>Headline–body interaction models</li>
-            <li>Lightweight transformer and hybrid neural-linguistic models</li>
-        </ul>-->
-
-        <p><strong>3. Adaptive Representation Learning</strong></p>
-       <!-- <ul>
-            <li>Token / sentence attention mechanisms</li>
-            <li>Representation-level attention and gating</li>
-            <li>Dynamic feature-representation selection</li>
-        </ul> -->
-
-        <p><strong>4. Dataset Bias & Generalization</strong></p>
-
-        <p><strong>5. Low-resource Sinhala Extension</strong></p>
-
-    </div>
+    
 </div>
 
 <div class="slide">
