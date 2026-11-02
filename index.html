@@ -1145,8 +1145,12 @@ Evaluation Method is 10-Fold Cross-Validation
 
 <div class="slide">
     <h2>High-Resource English: Feature Representation Comparison</h2>
-
-    <table>
+  what's the point of doing feature repesentation?
+  and as a whole what's the benefit and throught that if i do it whats the classifier i should be using, what's the resonalble model
+  class of models that use the similar classifier-working similarly
+  find which one gave the best one - design 
+  models,metrics
+  <table>
         <tr>
             <th>Representation</th>
             <th>Classifier</th>
@@ -1415,7 +1419,7 @@ Evaluation Method is 10-Fold Cross-Validation
     <p>1. Accuracy dominates the reporting. </p>
     <p>2. Threshold selection is not reported yet in IFND literature. </p>
 </div>
-
+<!--
 <div class="slide">
     <h2>Transition to the Low-Resource Sinhala Setting</h2>
 
@@ -1559,8 +1563,8 @@ Evaluation Method is 10-Fold Cross-Validation
         </li>
     </ol>
 </div>
-
-
+-->
+<!--
 <div class="slide">
 <h2>Threshold Selection</h2>
 
@@ -1655,10 +1659,9 @@ Fake Recall <strong>90.38%</strong>, Fake Precision <strong>95.66%</strong>
     <td><strong>93.57%</strong></td>
 </tr>
 </table>
--->
+
 
 <h3>3. Final Class-wise Performance</h3>
-
 <table>
 <tr>
     <th>Class</th>
@@ -1686,30 +1689,61 @@ Fake Recall <strong>90.38%</strong>, Fake Precision <strong>95.66%</strong>
 </div>
 
 
-
+<!--just a demo sort of a thing
+    shall we 
+    what's different in bangla & sinhala and 
+    and how we can change it
+    and based on this we can suggest a customization
+    if doing bad consider improvement
+    *****************
+    train auto-encoder and can we use that to do anomaly detection
+-->
 <div class="slide">
-    <h2>Anomaly Detection in the Low-Resource Sinhala Setting WorkPlan</h2>
-
+    <h2>Anomaly Detection in the Low-Resource Sinhala Language - Work Plan</h2>
     <ol>
-        <li>Text preprocessing</li>
-
         <li>
-            Data augmentation
-            <ol type="a">
-                <li>Lexical augmentation using similar words replacement</li>
-                <li>Multi-Pivot back-translation</li>
-                <li>Few-Shot LLM candidate generation</li>
-                <li>Semantic similarity filtering</li>
-            </ol>
+            Dataset (LIRNEasia Sinhala Fake News)
+            <ul>
+                <li>CREDIBLE: 1003 (33.43%)</li>
+                <li>FALSE: 27 (0.90%)</li>
+                <li>UNCERTAIN: 1887 (62.90%)</li>
+                <li>PARTIAL: 83 (2.77%)</li>
+            </ul>
         </li>
 
-        <li>Weighted focal loss integration</li>
+        <li>
+            Pipeline Steps
+            <p>Sinhala text news &rarr; Clean and normalize &rarr; Tokenize &rarr; Embedding model &rarr; Sentence embedding &rarr; Autoencoder encoder &rarr; Latent vector &rarr; Decoder &rarr; Reconstruction error &rarr; Anomaly threshold &rarr; Real vs. Fake prediction</p>
+        </li>
 
-        <li>Horizontal subset ensembling</li>
+        <li>
+            Embedding Models
+            <ul>
+                <li>Sinhala-specific: <code>NLPC-UOM/SinBERT-large</code>, <code>SinBERT-small</code>, <code>alphaedge-ai/embeddinggemma-sin-32768</code>, <code>Qwen3-Embedding-sin-16384</code>, <code>bge-m3-sin-16384</code>, <code>multilingual-e5-small-sin-32768</code></li>
+                <li>Multilingual: <code>XLM-RoBERTa (XLM-R)</code>, <code>LaBSE</code>, <code>BGE-M3</code>, <code>multilingual-e5-small</code>, <code>FastText</code></li>
+            </ul>
+        </li>
 
-        <li>Embedding synthesis</li>
+        <li>
+            Autoencoder Architectures (Encoders)</strong>
+            <ul>
+                <li>Vanilla / Deep AE</li>
+                <li>Denoising AE</li>
+                <li>LSTM / GRU Sequence AE</li>
+                <li>Transformer AE</li>
+                <li>VAE</li>
+            </ul>
+        </li>
 
-        <li>Hidden feature extraction</li>
+        <li>
+            Experimental Setup</strong>
+            <ul>
+                <li>Training: CREDIBLE only</li>
+                <li>Validation: CREDIBLE only</li>
+                <li>Testing: CREDIBLE + FALSE (1003 Credible vs 27 False)</li>
+            </ul>
+        </li>
+        <li>Comparison study</li>
     </ol>
 </div>
 
